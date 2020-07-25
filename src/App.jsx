@@ -1,17 +1,16 @@
-import React, { Component } from 'react'
-import { Container, Image, Header, Button, Grid } from 'semantic-ui-react'
+import React, { Component } from "react";
+import { Container, Image, Header, Button, Grid } from "semantic-ui-react";
 
-import Countdown from './components/Countdown'
-import HotkeysSheet from './components/HotkeysSheet'
-import { determineWinner } from './helpers/determineWinner'
-import { hotkeyHandler } from './helpers/hotkeyHandler'
-import rightRock from './images/right-rock.png'
-import rightPaper from './images/right-paper.png'
-import rightScissors from './images/right-scissors.png'
-import leftRock from './images/left-rock.png'
-import leftPaper from './images/left-paper.png'
-import leftScissors from './images/left-scissors.png'
-
+import Countdown from "./components/Countdown";
+import HotkeysSheet from "./components/HotkeysSheet";
+import { determineWinner } from "./helpers/determineWinner";
+import { hotkeyHandler } from "./helpers/hotkeyHandler";
+import rightrock from "./images/right-rock.png";
+import rightpaper from "./images/right-paper.png";
+import rightscissors from "./images/right-scissors.png";
+import leftrock from "./images/left-rock.png";
+import leftpaper from "./images/left-paper.png";
+import leftscissors from "./images/left-scissors.png";
 
 class App extends Component {
   state = {
@@ -23,40 +22,45 @@ class App extends Component {
     leftPlayerScore: 0,
     rightPlayerScore: 0,
     scoreLimit: 3,
-  }
+  };
 
   tick = () => {
-    const winner = determineWinner(this.state.leftChoice, this.state.rightChoice)
-    const countdown = this.state.countdown
+    const winner = determineWinner(
+      this.state.leftChoice,
+      this.state.rightChoice
+    );
+    const countdown = this.state.countdown;
 
     if (countdown >= 2 && countdown < 4) {
-      this.setState(({countdown}) => ({
-        countdown: countdown - 1
-      }))
+      this.setState(({ countdown }) => ({
+        countdown: countdown - 1,
+      }));
     } else if (countdown < 2 && countdown >= 0) {
-      this.setState(({countdown}) => ({ 
+      this.setState(({ countdown }) => ({
         weHaveAWinner: true,
         winner: winner,
-        countdown: countdown - 1
-      }))
+        countdown: countdown - 1,
+      }));
     } else if (countdown < 0) {
-      this.handleScore()
-      this.setState({ 
+      this.handleScore();
+      this.setState({
         countdown: 3,
         weHaveAWinner: false,
         leftChoice: "",
-        rightChoice: ""
-      })
-      this.determineFinalWinner()
-      }
-  }
+        rightChoice: "",
+      });
+      this.determineFinalWinner();
+    }
+  };
 
-  keydownHandler = e => {
-    this.setState(hotkeyHandler(e.keyCode, this.state.countdown))
-  }
+  keydownHandler = (e) => {
+    this.setState(hotkeyHandler(e.keyCode, this.state.countdown));
+  };
 
-  componentDidMount(){
-    document.addEventListener('keydown', (event) => { this.keydownHandler(event) })
+  componentDidMount() {
+    document.addEventListener("keydown", (event) => {
+      this.keydownHandler(event);
+    });
   }
 
   startGame = () => {
@@ -65,105 +69,123 @@ class App extends Component {
       weHaveAWinner: false,
       winner: "",
       leftPlayerScore: 0,
-      rightPlayerScore: 0
-    })
+      rightPlayerScore: 0,
+    });
     this.timer = setInterval(() => {
-      this.tick()
-    }, 1000)
-  }
+      this.tick();
+    }, 1000);
+  };
 
   handleScore = () => {
-    const { winner, leftPlayerScore, rightPlayerScore } = this.state
+    const { winner, leftPlayerScore, rightPlayerScore } = this.state;
 
-    if (winner === 'Left player wins') {
-      this.setState({ leftPlayerScore: leftPlayerScore + 1 })
+    if (winner === "Left player wins") {
+      this.setState({ leftPlayerScore: leftPlayerScore + 1 });
     }
-    if (winner === 'Right player wins') {
-      this.setState({ rightPlayerScore: rightPlayerScore + 1 })
+    if (winner === "Right player wins") {
+      this.setState({ rightPlayerScore: rightPlayerScore + 1 });
     }
-  }
-  
+  };
+
   determineFinalWinner = () => {
-    const { rightPlayerScore, leftPlayerScore, scoreLimit } = this.state
-    
+    const { rightPlayerScore, leftPlayerScore, scoreLimit } = this.state;
+
     if (rightPlayerScore === scoreLimit || leftPlayerScore === scoreLimit) {
-      this.setState({ 
+      this.setState({
         countdown: 4,
         weHaveAWinner: true,
-        winner: `${rightPlayerScore > leftPlayerScore ? "Right" : "Left"} player wins it all`
-      })
-      clearInterval(this.timer)
+        winner: `${
+          rightPlayerScore > leftPlayerScore ? "Right" : "Left"
+        } player wins it all`,
+      });
+      clearInterval(this.timer);
     }
-  }
+  };
 
   render() {
-    let renderWinner, startButton, leftPlayer, rightPlayer, leftPlayerChoice, rightPlayerChoice
-
-    if (this.state.leftChoice === 'rock') {
-      leftPlayerChoice = <Image id="leftPlayerChoice" size='small' src={leftRock}/>
-    } else if (this.state.leftChoice === 'paper') {
-      leftPlayerChoice = <Image id="leftPlayerChoice" size='small' src={leftPaper}/>
-    } else if (this.state.leftChoice === 'scissors') {
-      leftPlayerChoice = <Image id="leftPlayerChoice" size='small' src={leftScissors}/>
-    }
-    
-    if (this.state.rightChoice === 'rock') {
-      rightPlayerChoice = <Image id="rightPlayerChoice" size='small' src={rightRock}/>
-    } else if (this.state.rightChoice === 'paper') {
-      rightPlayerChoice = <Image id="rightPlayerChoice" size='small' src={rightPaper}/>
-    } else if (this.state.rightChoice === 'scissors') {
-      rightPlayerChoice = <Image id="rightPlayerChoice" size='small' src={rightScissors}/>
-    }
+    const { leftChoice, rightChoice } = this.state;
+    let renderWinner, startButton, leftPlayer, rightPlayer;
 
     if (this.state.weHaveAWinner === true) {
-      renderWinner = <Header className="winnerText" as="h1" id="winner">{this.state.winner}!</Header>
-      if (leftPlayerChoice) {
-        leftPlayer = leftPlayerChoice
+      renderWinner = (
+        <Header className="winnerText" as="h1" id="winner">
+          {this.state.winner}!
+        </Header>
+      );
+
+      if (leftChoice) {
+        leftPlayer = (
+          <Image id="leftPlayerChoice" size="small" src={ leftChoice === "rock" ? leftrock : leftChoice === "paper" ? leftpaper : leftscissors} />
+        );
       } else {
-        leftPlayer = <Image id="leftPlayerChoice" size='small' src={leftRock}/>
+        leftPlayer = (
+          <div id="leftPlayerChoice">
+            <p className="slow-left">too slow!</p>
+            <Image size="small" src={leftrock} />
+          </div>
+        );
       }
-      if (rightPlayerChoice) {
-        rightPlayer = rightPlayerChoice
+      if (rightChoice) {
+        rightPlayer = (
+          <Image
+            id="rightPlayerChoice"
+            size="small"
+            src={ rightChoice === "rock" ? rightrock : rightChoice === "paper" ? rightpaper : rightscissors}
+          />
+        );
       } else {
-        rightPlayer = <Image id="rightPlayerChoice" size='small' src={rightRock}/>
+        rightPlayer = (
+          <div id="rightPlayerChoice">
+            <p className="slow-right">too slow!</p>
+            <Image size="small" src={rightrock} />
+          </div>
+        );
       }
     } else {
-      leftPlayer   = <Image id="leftPlayer" size='small' src={leftRock}/>
-      rightPlayer  = <Image id="rightPlayer" size='small' src={rightRock}/>
+      leftPlayer = <Image id="leftPlayer" size="small" src={leftrock} />;
+      rightPlayer = <Image id="rightPlayer" size="small" src={rightrock} />;
     }
 
     if (this.state.countdown === 4) {
-      startButton = <Button id="start-game" className='Button' onClick={this.startGame}>Start!</Button>
+      startButton = (
+        <Button id="start-game" className="Button" onClick={this.startGame}>
+          Start!
+        </Button>
+      );
     }
 
     return (
       <Container align="center">
-        <Header as="h3" id="score-limit" style={{paddingTop: "30px", color: "#cdffcd"}}>
+        <Header
+          as="h3"
+          id="score-limit"
+          style={{ paddingTop: "30px", color: "#cdffcd" }}
+        >
           First to {this.state.scoreLimit} wins!
         </Header>
-        <Container style={{height: "90px", paddingTop: '2%'}}>
+        <Container style={{ height: "90px", paddingTop: "2%" }}>
           {startButton}
-          <Countdown countdown={this.state.countdown}/>
+          <Countdown countdown={this.state.countdown} />
         </Container>
-          {renderWinner}
-        <Container className="playerContainer" style={{paddingTop: "15%"}}>
+        {renderWinner}
+        <Container className="playerContainer" style={{ paddingTop: "15%" }}>
           {leftPlayer}
           {rightPlayer}
         </Container>
         <Grid fluid>
           <Grid.Row className="playerContainer">
-          <Header className="score" as="h1" id="leftPlayerScore">
-            {this.state.leftPlayerScore}
-          </Header> 
-          <Header className="score" as="h1" id="rightPlayerScore">
-            {this.state.rightPlayerScore}
-          </Header> 
+            <Header className="score" as="h1" id="leftPlayerScore">
+              {this.state.leftPlayerScore}
+            </Header>
+            <Header className="score" as="h1" id="rightPlayerScore">
+              {this.state.rightPlayerScore}
+            </Header>
           </Grid.Row>
         </Grid>
-        <HotkeysSheet/>
+        <HotkeysSheet />
       </Container>
-    )
+    );
   }
 }
 
-export default App
+export default App;

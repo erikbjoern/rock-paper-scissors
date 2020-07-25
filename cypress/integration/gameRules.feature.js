@@ -28,7 +28,7 @@ describe('Game rules',  () => {
     cy.get('#winner').should('contain', 'Tie')
   })
   
-  it.only("a player who doesn't make a choice in time looses", () => {
+  it("a player who doesn't make a choice in time looses", () => {
     cy.get('body').trigger('keydown', {  keyCode: 49  })
     cy.get('#winner').should('contain', 'Left player wins')
   })

@@ -1,6 +1,7 @@
 describe('Players should see', () => {
   beforeEach(() => {
     cy.visit('/')
+    cy.get('#start-game').click()
   })
 
   it('a button to start the game timer', () => {
@@ -8,12 +9,10 @@ describe('Players should see', () => {
   })
 
   it('a timer countdown', () => {
-    cy.get('#start-game').click()
     cy.get('#countdown').should('be.visible')
   })
   
   it('the timer ticking', () => {
-    cy.get('#start-game').click()
     cy.get('#countdown').should('contain', 'rock')
     cy.wait(1000)
     cy.get('#countdown').should('contain', 'paper')
@@ -30,7 +29,6 @@ describe('Players should see', () => {
   })
 
   it("left player's choice after countdown", () => {
-    cy.get('#start-game').click()
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })
     cy.wait(4000)
@@ -38,7 +36,6 @@ describe('Players should see', () => {
   })
 
   it("right player's choice after countdown", () => {
-    cy.get('#start-game').click()
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })
     cy.wait(4000)
@@ -46,11 +43,15 @@ describe('Players should see', () => {
   })
   
   it('the winner after countdown', () => {
-    cy.get('#start-game').click()
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })
     cy.wait(4000)
     cy.get('#winner').should('contain', 'Left player wins')
+  })
+
+  it('feedback when not making a choice', () => {
+    cy.get('body').trigger('keydown', { keyCode: 39 })
+    cy.get('.slow-left').should('contain', 'too slow!')
   })
   
   it("left player's score", () => {
@@ -62,7 +63,6 @@ describe('Players should see', () => {
   })
 
   it("winner's score increase", () => {
-    cy.get('#start-game').click()
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })
     cy.wait(5000)
