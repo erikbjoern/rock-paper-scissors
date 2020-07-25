@@ -18,49 +18,53 @@ class App extends Component {
     rightChoice: "",
     weHaveAWinner: false,
     winner: "",
-    countdown: 5,
+    countdown: 4,
     leftPlayerScore: 0,
-    rightPlayerScore: 0
+    rightPlayerScore: 0,
+    scoreLimit: 3,
+  }
+
+  tick = () => {
+    const winner = determineWinner(this.state.leftChoice, this.state.rightChoice)
+    const countdown = this.state.countdown
+
+    if (countdown >= 2 && countdown < 4) {
+      this.setState(({countdown}) => ({
+        countdown: countdown - 1
+      }))
+    } else if (countdown < 2 && countdown >= 0) {
+      this.setState(({countdown}) => ({ 
+        weHaveAWinner: true,
+        winner: winner,
+        countdown: countdown - 1
+      }))
+    } else if (countdown < 0) {
+      this.handleScore()
+      this.setState({ 
+        countdown: 3,
+        weHaveAWinner: false,
+        leftChoice: "",
+        rightChoice: ""
+      })
+      this.determineFinalWinner()
+      }
   }
 
   componentDidMount(){
     document.addEventListener('keydown', this.onKeyDownHandler)
-
-    setInterval(() => {
-      const winner = determineWinner(this.state.leftChoice, this.state.rightChoice)
-      const countdown = this.state.countdown
-  
-      if (countdown >= 2 && countdown < 5) {
-        this.setState(({countdown}) => ({
-          countdown: countdown - 1
-        }))
-      } else if (countdown < 2 && countdown >= 0) {
-        this.setState(({countdown}) => ({ 
-          weHaveAWinner: true,
-          winner: winner,
-          countdown: countdown - 1
-        }))
-      } else if (countdown < 0) {
-        this.handleScore()
-        this.setState({ 
-          countdown: 3,
-          weHaveAWinner: false,
-          leftChoice: "",
-          rightChoice: ""
-        })
-        this.determineFinalWinner()
-      }
-    }, 1000)
   }
 
   startGame = () => {
     this.setState({
-      countdown: 4,
+      countdown: 3,
       weHaveAWinner: false,
       winner: "",
       leftPlayerScore: 0,
       rightPlayerScore: 0
     })
+    this.timer = setInterval(() => {
+      this.tick()
+    }, 1000)
   }
 
   onKeyDownHandler = e => {
@@ -90,9 +94,7 @@ class App extends Component {
   }
 
   handleScore = () => {
-    const winner           = this.state.winner, 
-          leftPlayerScore  = this.state.leftPlayerScore, 
-          rightPlayerScore = this.state.rightPlayerScore
+    const { winner, leftPlayerScore, rightPlayerScore } = this.state
 
     if (winner === 'Left player wins') {
       this.setState({ leftPlayerScore: leftPlayerScore + 1 })
@@ -103,19 +105,15 @@ class App extends Component {
   }
   
   determineFinalWinner = () => {
-    if (this.state.rightPlayerScore === 10) {
+    const { rightPlayerScore, leftPlayerScore, scoreLimit } = this.state
+    
+    if (rightPlayerScore === scoreLimit || leftPlayerScore === scoreLimit) {
       this.setState({ 
-        countdown: 5,
+        countdown: 4,
         weHaveAWinner: true,
-        winner: 'Right player wins it all'
+        winner: `${rightPlayerScore > leftPlayerScore ? "Right" : "Left"} player wins it all`
       })
-    }
-    if (this.state.leftPlayerScore === 10) {
-      this.setState({ 
-        countdown: 5,
-        weHaveAWinner: true,
-        winner: 'Left player wins it all'
-      })
+      clearInterval(this.timer)
     }
   }
 
@@ -155,14 +153,14 @@ class App extends Component {
       rightPlayer  = <Image id="rightPlayer" size='small' src={rightRock}/>
     }
 
-    if (this.state.countdown === 5) {
+    if (this.state.countdown === 4) {
       startButton = <Button id="start-game" className='Button' onClick={this.startGame}>Start!</Button>
     }
 
     return (
       <Container align="center">
         <Header as="h3" id="score-limit" style={{paddingTop: "30px", color: "#cdffcd"}}>
-          First to 10 wins!
+          First to {this.state.scoreLimit} wins!
         </Header>
         <Container style={{height: "90px", paddingTop: '2%'}}>
           {startButton}
