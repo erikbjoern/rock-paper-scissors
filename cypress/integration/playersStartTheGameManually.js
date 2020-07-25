@@ -1,13 +1,9 @@
-describe('Players should see', () => {
+describe('Players start the game manually', () => {
   beforeEach(() => {
     cy.visit('/')
   })
-
-  it('a button to start the game', () => {
-    cy.get('#start-game').should('contain', 'Start!')
-  })
-
-  it('the button starts the countdown', () => {
+  
+  it('by clicking "Start!"', () => {
     cy.get('#start-game').click()
     cy.get('#countdown').should('contain', 'rock')
     cy.get('#countdown').should('contain', 'paper')
