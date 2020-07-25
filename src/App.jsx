@@ -4,6 +4,7 @@ import { Container, Image, Header, Button, Grid } from 'semantic-ui-react'
 import Countdown from './components/Countdown'
 import HotkeysSheet from './components/HotkeysSheet'
 import { determineWinner } from './helpers/determineWinner'
+import { hotkeyHandler } from './helpers/hotkeyHandler'
 import rightRock from './images/right-rock.png'
 import rightPaper from './images/right-paper.png'
 import rightScissors from './images/right-scissors.png'
@@ -50,8 +51,12 @@ class App extends Component {
       }
   }
 
+  keydownHandler = e => {
+    this.setState(hotkeyHandler(e.keyCode, this.state.countdown))
+  }
+
   componentDidMount(){
-    document.addEventListener('keydown', this.onKeyDownHandler)
+    document.addEventListener('keydown', (event) => { this.keydownHandler(event) })
   }
 
   startGame = () => {
@@ -65,32 +70,6 @@ class App extends Component {
     this.timer = setInterval(() => {
       this.tick()
     }, 1000)
-  }
-
-  onKeyDownHandler = e => {
-    if(this.state.countdown > 0) {
-      switch (e.keyCode) {
-        case 49:
-          this.setState({ leftChoice: "rock" })
-          break
-        case 50:
-          this.setState({ leftChoice: "paper" })
-          break
-        case 51:
-          this.setState({ leftChoice: "scissors" })
-          break
-        case 37:
-          this.setState({ rightChoice: "rock" })
-          break
-        case 38:
-          this.setState({ rightChoice: "paper" })
-          break
-        case 39:
-          this.setState({ rightChoice: "scissors" })
-          break
-        default: break
-      }
-    }
   }
 
   handleScore = () => {
