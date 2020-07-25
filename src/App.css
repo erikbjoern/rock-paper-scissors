@@ -1,0 +1,66 @@
+@font-face {
+  font-family: 'Bangers';
+  src: local('Bangers'), url(./fonts/Bangers-Regular.ttf) format('truetype');
+}
+
+.text {  
+  font-family: 'Bangers', cursive !important;
+  font-size: 300% !important;
+  color: #12240a;
+  letter-spacing: 0.3rem;
+}
+
+.winnerText {  
+  font-family: 'Bangers', cursive !important;
+  font-size: 300% !important;
+  color: #12240a;
+  letter-spacing: 0.3rem;
+  position: absolute; 
+  margin: 0, auto;
+  left: 0;
+  right: 0;
+  top: 150px;
+}
+
+.playerContainer {
+  display: flex !important; 
+  justify-content: space-evenly !important;
+  margin-bottom: 4%;
+}
+
+.score {  
+  font-family: 'Bangers' !important;
+  font-size: 500% !important;
+  letter-spacing: 0.3rem;
+  color: #f1d969 !important;
+  margin-top: 0 !important;
+}
+
+.button {
+  font-family: 'Bangers', cursive !important;
+  font-size: 200% !important;
+  padding: 15px !important;
+  border: 2px solid #cc9c49 !important;
+  background-color: #f1d969 !important;
+}
+
+.background {
+  background-color: #87a658;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ui.grid>.row {
+  padding-top: 0 !important; 
+  padding-bottom: 0 !important;
+}
+
+.ui.grid>.row>.column {
+  text-align: center !important;
+}
+
+.hotkeysSheet {
+  bottom: 50px !important;
+  color: #cdffcd; 
+  padding-top: 50px;
+}

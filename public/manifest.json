@@ -1,0 +1,8 @@
+{
+  "short_name": "RPS",
+  "name": "Rock paper scissors game for two!",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#87a658"
+}
