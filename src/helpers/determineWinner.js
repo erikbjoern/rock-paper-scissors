@@ -1,4 +1,8 @@
 const compare = (leftChoice, rightChoice) => {
+  if (rightChoice === "") {
+    return 'Left player wins'
+  }
+
   switch(leftChoice) {
     case rightChoice:
       return 'Tie'
@@ -8,6 +12,8 @@ const compare = (leftChoice, rightChoice) => {
       return rightChoice === "rock" ? 'Left player wins' : 'Right player wins'
     case "scissors":
       return rightChoice === "paper" ? 'Left player wins' : 'Right player wins'
+    case "":
+      return 'Right player wins'
     default: 
       break
   }
