@@ -4,10 +4,6 @@ describe('Players should see', () => {
     cy.get('#start-game').click()
   })
 
-  it('a button to start the game timer', () => {
-     cy.get('#start-game').should('contain', 'Start!')
-  })
-
   it('a timer countdown', () => {
     cy.get('#countdown').should('be.visible')
   })
