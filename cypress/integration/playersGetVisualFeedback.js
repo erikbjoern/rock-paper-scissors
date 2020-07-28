@@ -24,6 +24,16 @@ describe('Players should see', () => {
     cy.get('#rightPlayer').should('be.visible')
   })
 
+  it.only('a call to make a choice until a choice is made', () => {
+    cy.get("#leftPlayer").within(() => {
+      cy.get('.make-a-choice').should('contain', 'make a choice!')
+    })
+    cy.get('body').trigger('keydown', { keyCode: 49 })
+    cy.get("#leftPlayer").within(() => {
+      cy.get('.make-a-choice').should('not.be.visible')
+    })
+  })
+
   it("left player's choice after countdown", () => {
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })

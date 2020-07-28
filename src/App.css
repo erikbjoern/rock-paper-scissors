@@ -22,6 +22,20 @@
   top: 150px;
 }
 
+.make-a-choice {
+  color: #f1d969;
+  font-family: 'Bangers', cursive;
+  letter-spacing: 0.1em;
+  font-size: 150%;
+}
+
+.slow-left,
+.slow-right {
+  color: crimson;
+  font-family: 'Bangers', cursive;
+  letter-spacing: 0.05em;
+}
+
 .playerContainer {
   display: flex !important; 
   justify-content: space-evenly !important;

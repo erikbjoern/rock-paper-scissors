@@ -103,7 +103,7 @@ class App extends Component {
   };
 
   render() {
-    const { leftChoice, rightChoice } = this.state;
+    const { leftChoice, rightChoice, countdown } = this.state;
     let renderWinner, startButton, leftPlayer, rightPlayer;
 
     if (this.state.weHaveAWinner === true) {
@@ -115,7 +115,17 @@ class App extends Component {
 
       if (leftChoice) {
         leftPlayer = (
-          <Image id="leftPlayerChoice" size="small" src={ leftChoice === "rock" ? leftrock : leftChoice === "paper" ? leftpaper : leftscissors} />
+          <Image
+            id="leftPlayerChoice"
+            size="small"
+            src={
+              leftChoice === "rock"
+                ? leftrock
+                : leftChoice === "paper"
+                ? leftpaper
+                : leftscissors
+            }
+          />
         );
       } else {
         leftPlayer = (
@@ -130,7 +140,13 @@ class App extends Component {
           <Image
             id="rightPlayerChoice"
             size="small"
-            src={ rightChoice === "rock" ? rightrock : rightChoice === "paper" ? rightpaper : rightscissors}
+            src={
+              rightChoice === "rock"
+                ? rightrock
+                : rightChoice === "paper"
+                ? rightpaper
+                : rightscissors
+            }
           />
         );
       } else {
@@ -142,11 +158,25 @@ class App extends Component {
         );
       }
     } else {
-      leftPlayer = <Image id="leftPlayer" size="small" src={leftrock} />;
-      rightPlayer = <Image id="rightPlayer" size="small" src={rightrock} />;
+      leftPlayer = (
+        <div id="leftPlayer">
+          {!leftChoice && countdown < 4 && (
+            <p className="make-a-choice">make a choice!</p>
+          )}
+          <Image size="small" src={leftrock} />
+        </div>
+      );
+      rightPlayer = (
+        <div id="leftPlayer">
+          {!rightChoice && countdown < 4 && (
+            <p className="make-a-choice">make a choice!</p>
+          )}
+          <Image id="rightPlayer" size="small" src={rightrock} />
+        </div>
+      );
     }
 
-    if (this.state.countdown === 4) {
+    if (countdown === 4) {
       startButton = (
         <Button id="start-game" className="Button" onClick={this.startGame}>
           Start!
@@ -165,7 +195,7 @@ class App extends Component {
         </Header>
         <Container style={{ height: "90px", paddingTop: "2%" }}>
           {startButton}
-          <Countdown countdown={this.state.countdown} />
+          <Countdown countdown={countdown} />
         </Container>
         {renderWinner}
         <Container className="playerContainer" style={{ paddingTop: "15%" }}>

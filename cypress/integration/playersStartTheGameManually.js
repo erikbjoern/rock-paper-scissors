@@ -10,4 +10,9 @@ describe('Players start the game manually', () => {
     cy.get('#countdown').should('contain', 'paper')
     cy.get('#countdown').should('contain', 'scissors')
   })
+
+  
+  it('"make a choice" should not be visible before game start', () => {
+    cy.get('.make-a-choice').should('not.exist')
+  })
 })
