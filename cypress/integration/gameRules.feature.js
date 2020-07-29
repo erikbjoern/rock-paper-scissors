@@ -22,14 +22,23 @@ describe('Game rules',  () => {
     cy.get('#winner').should('contain', 'Left player wins')
   })
   
-  it('Identicals picks result in a tie', () => {
+  it('Identical choices result in a tie', () => {
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 37 })
     cy.get('#winner').should('contain', 'Tie')
   })
+
+  it('no choices results in a tie', () => {
+    cy.get('#winner').should('contain', 'Tie')
+  })
   
-  it("a player who doesn't make a choice in time looses", () => {
+  it("a player who doesn't make a choice in time looses (left wins)", () => {
     cy.get('body').trigger('keydown', {  keyCode: 49  })
     cy.get('#winner').should('contain', 'Left player wins')
+  })
+  
+  it("a player who doesn't make a choice in time looses (right wins)", () => {
+    cy.get('body').trigger('keydown', {  keyCode: 37  })
+    cy.get('#winner').should('contain', 'Right player wins')
   })
 })

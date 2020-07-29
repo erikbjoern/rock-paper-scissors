@@ -1,5 +1,5 @@
 const compare = (leftChoice, rightChoice) => {
-  if (rightChoice === "") {
+  if (rightChoice === "" && leftChoice !== "") {
     return 'Left player wins'
   }
 
