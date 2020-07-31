@@ -76,7 +76,7 @@ describe('Players should see', () => {
   })
 
   it('the score limit', () => {
-    cy.get('#score-limit').should('contain', 'First to 3 wins!')
+    cy.get('#scoreLimit').should('contain', 'First to 3 wins!')
   })
 
   it('the hotkeys to use', () => {

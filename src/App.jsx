@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Container, Image, Header, Button, Grid } from "semantic-ui-react";
 
 import Countdown from "./components/Countdown";
 import HotkeysSheet from "./components/HotkeysSheet";
@@ -107,17 +106,14 @@ class App extends Component {
     let renderWinner, startButton, leftPlayer, rightPlayer;
 
     if (this.state.weHaveAWinner === true) {
-      renderWinner = (
-        <Header className="winnerText" as="h1" id="winner">
-          {this.state.winner}!
-        </Header>
-      );
+      renderWinner = <h1 id="winner">{this.state.winner}!</h1>;
 
       if (leftChoice) {
         leftPlayer = (
-          <Image
+          <img
             id="leftPlayerChoice"
-            size="small"
+            width="150px"
+            height="150px"
             src={
               leftChoice === "rock"
                 ? leftrock
@@ -131,15 +127,16 @@ class App extends Component {
         leftPlayer = (
           <div id="leftPlayerChoice">
             <p className="slow-left">too slow!</p>
-            <Image size="small" src={leftrock} />
+            <img width="150px" height="150px" src={leftrock} />
           </div>
         );
       }
       if (rightChoice) {
         rightPlayer = (
-          <Image
+          <img
             id="rightPlayerChoice"
-            size="small"
+            width="150px"
+            height="150px"
             src={
               rightChoice === "rock"
                 ? rightrock
@@ -153,7 +150,7 @@ class App extends Component {
         rightPlayer = (
           <div id="rightPlayerChoice">
             <p className="slow-right">too slow!</p>
-            <Image size="small" src={rightrock} />
+            <img width="150px" height="150px" src={rightrock} />
           </div>
         );
       }
@@ -163,57 +160,55 @@ class App extends Component {
           {!leftChoice && countdown < 4 && (
             <p className="make-a-choice">make a choice!</p>
           )}
-          <Image size="small" src={leftrock} />
+          <img width="150px" height="150px" src={leftrock} />
         </div>
       );
       rightPlayer = (
-        <div id="leftPlayer">
+        <div id="rightPlayer">
           {!rightChoice && countdown < 4 && (
             <p className="make-a-choice">make a choice!</p>
           )}
-          <Image id="rightPlayer" size="small" src={rightrock} />
+          <img width="150px" height="150px" src={rightrock} />
         </div>
       );
     }
 
     if (countdown === 4) {
       startButton = (
-        <Button id="start-game" className="Button" onClick={this.startGame}>
+        <button
+          id="start-game"
+          className="startButton"
+          onClick={this.startGame}
+        >
           Start!
-        </Button>
+        </button>
       );
     }
 
     return (
-      <Container align="center">
-        <Header
-          as="h3"
-          id="score-limit"
-          style={{ paddingTop: "30px", color: "#cdffcd" }}
-        >
+      <div className="mainContainer">
+        <h1 id="scoreLimit" style={{ paddingTop: "30px", color: "#cdffcd" }}>
           First to {this.state.scoreLimit} wins!
-        </Header>
-        <Container style={{ height: "90px", paddingTop: "2%" }}>
+        </h1>
+        <div style={{ height: "200px", paddingTop: "2%" }}>
           {startButton}
           <Countdown countdown={countdown} />
-        </Container>
-        {renderWinner}
-        <Container className="playerContainer" style={{ paddingTop: "15%" }}>
+          {renderWinner}
+        </div>
+        <div className="playerContainer">
           {leftPlayer}
           {rightPlayer}
-        </Container>
-        <Grid fluid>
-          <Grid.Row className="playerContainer">
-            <Header className="score" as="h1" id="leftPlayerScore">
-              {this.state.leftPlayerScore}
-            </Header>
-            <Header className="score" as="h1" id="rightPlayerScore">
-              {this.state.rightPlayerScore}
-            </Header>
-          </Grid.Row>
-        </Grid>
+        </div>
+        <div className="scoreContainer">
+          <div className="score" id="leftPlayerScore">
+            {this.state.leftPlayerScore}
+          </div>
+          <div className="score" id="rightPlayerScore">
+            {this.state.rightPlayerScore}
+          </div>
+        </div>
         <HotkeysSheet />
-      </Container>
+      </div>
     );
   }
 }

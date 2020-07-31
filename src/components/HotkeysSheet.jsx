@@ -1,30 +1,30 @@
 import React from 'react'
-import {Grid, Header} from 'semantic-ui-react'
 
 const HotkeysSheet = () => {
   return (
-    <Grid className="hotkeysSheet" centered>
-      <Grid.Row><Header as="h2" style={{color: "#cdffcd"}}>Hotkeys</Header></Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={4}><Header as="h4" style={{color: "#cdffcd"}}>Left player</Header></Grid.Column>
-        <Grid.Column  width={4}><Header as="h4" style={{color: "#cdffcd"}}>Right player</Header></Grid.Column>
-      </Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={2}>1</Grid.Column>
-        <Grid.Column  width={2}>Rock</Grid.Column>
-        <Grid.Column  width={2}>ArrowLeft</Grid.Column>
-      </Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={2}>2</Grid.Column>
-        <Grid.Column  width={2}>Paper</Grid.Column>
-        <Grid.Column  width={2}>ArrowUp</Grid.Column>
-      </Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={2}>3</Grid.Column>
-        <Grid.Column  width={2}>Scissors</Grid.Column>
-        <Grid.Column  width={2}>ArrowRight</Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <table className="hotkeysSheet">
+      <caption style={{color: "#cdffcd", marginLeft: "-15px"}}>Hotkeys</caption>
+      <tr>
+        <th style={{color: "#cdffcd"}}>Left player</th>
+        <td></td>
+        <th style={{color: "#cdffcd"}}>Right player</th>
+      </tr>
+      <tr align="center">
+        <td>1</td>
+        <td>Rock</td>
+        <td>ArrowLeft</td>
+      </tr>
+      <tr align="center">
+        <td>2</td>
+        <td>Paper</td>
+        <td>ArrowUp</td>
+      </tr>
+      <tr align="center">
+        <td>3</td>
+        <td>Scissors</td>
+        <td>ArrowRight</td>
+      </tr>
+    </table>
   )
 }
 
