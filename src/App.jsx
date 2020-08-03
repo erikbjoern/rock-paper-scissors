@@ -34,13 +34,13 @@ class App extends Component {
       this.setState(({ countdown }) => ({
         countdown: countdown - 1,
       }));
-    } else if (countdown < 2 && countdown >= 0) {
+    } else if (countdown < 2 && countdown >= -1) {
       this.setState(({ countdown }) => ({
         weHaveAWinner: true,
         winner: winner,
         countdown: countdown - 1,
       }));
-    } else if (countdown < 0) {
+    } else if (countdown < -1) {
       this.handleScore();
       this.setState({
         countdown: 3,
@@ -106,7 +106,7 @@ class App extends Component {
     let renderWinner, startButton, leftPlayer, rightPlayer;
 
     if (this.state.weHaveAWinner === true) {
-      renderWinner = <h1 id="winner">{this.state.winner}!</h1>;
+      renderWinner = countdown < 0 && <h1 id="winner">{this.state.winner}!</h1>;
 
       if (leftChoice) {
         leftPlayer = (

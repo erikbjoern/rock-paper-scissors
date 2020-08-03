@@ -12,12 +12,38 @@
   }
 }
 
+.background {
+  background-color: #87a658;
+  height: 100%;
+  overflow: hidden;
+}
+
 .mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+#countdown {
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes countdown {
+ 0% {
+   transform: scale(0);
+ }
+ 100% {
+   transform: scale(1);
+ }
+}
+
+#countdown * {
+  animation: countdown 0.2s;
+  padding: 0;
+  margin: 0;
 }
 
 .playerContainer {
@@ -54,6 +80,7 @@
   font-size: 300%;
   color: #12240a;
   letter-spacing: 0.3rem;
+  text-align: center;
 }
 
 #winner {  
@@ -62,11 +89,6 @@
   text-align: center;
   letter-spacing: 0.3rem;
   color: #12240a;
-  position: absolute; 
-  margin: 0, auto;
-  left: 0;
-  right: 0;
-  top: 150px;
 }
 
 .make-a-choice {
@@ -98,12 +120,11 @@
   padding: 15px !important;
   border: 2px solid #cc9c49;
   background-color: #f1d969;
+  cursor: pointer;
 }
 
-.background {
-  background-color: #87a658;
-  height: 100%;
-  overflow: hidden;
+#scoreLimit {
+  font-family: sans-serif;
 }
 
 .hotkeysSheet {

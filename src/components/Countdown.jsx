@@ -2,24 +2,16 @@ import React from 'react'
 
 const Countdown = ({countdown}) => {
 
-  let countdownInText
-
-  switch(countdown) {
-    case 3:
-      countdownInText = 'rock'
-      break
-    case 2:
-      countdownInText = 'paper'
-      break
-    case 1:
-      countdownInText = 'scissors'
-      break
-    default:
-      countdownInText = ''
-  }
+  const rock     = countdown <= 3 && countdown >= 0 && <p> rock </p>
+  const paper    = countdown <= 2 && countdown >= 0 && <p> paper </p>
+  const scissors = countdown <= 1 && countdown >= 0 && <p> scissors </p>
   
   return (
-      <h1 className="text"  id="countdown">{countdownInText}</h1>
+    <div className="text"  id="countdown">
+      {rock}
+      {paper}
+      {scissors}
+    </div>
   )
 }
 
