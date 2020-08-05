@@ -17,7 +17,7 @@ class App extends Component {
     rightChoice: "",
     weHaveAWinner: false,
     winner: "",
-    countdown: 4,
+    countdown: 5,
     leftPlayerScore: 0,
     rightPlayerScore: 0,
     scoreLimit: 3,
@@ -30,7 +30,7 @@ class App extends Component {
     );
     const countdown = this.state.countdown;
 
-    if (countdown >= 2 && countdown < 4) {
+    if (countdown >= 2 && countdown < 5) {
       this.setState(({ countdown }) => ({
         countdown: countdown - 1,
       }));
@@ -64,7 +64,7 @@ class App extends Component {
 
   startGame = () => {
     this.setState({
-      countdown: 3,
+      countdown: 4,
       weHaveAWinner: false,
       winner: "",
       leftPlayerScore: 0,
@@ -91,7 +91,7 @@ class App extends Component {
 
     if (rightPlayerScore === scoreLimit || leftPlayerScore === scoreLimit) {
       this.setState({
-        countdown: 4,
+        countdown: 5,
         weHaveAWinner: true,
         winner: `${
           rightPlayerScore > leftPlayerScore ? "Right" : "Left"
@@ -168,12 +168,12 @@ class App extends Component {
           {!rightChoice && countdown < 4 && (
             <p className="make-a-choice">make a choice!</p>
           )}
-          <img width="150px" height="150px" src={rightrock} />
+          <img className="bouncingHand" width="150px" height="150px" src={rightrock} />
         </div>
       );
     }
 
-    if (countdown === 4) {
+    if (countdown === 5) {
       startButton = (
         <button
           id="start-game"
