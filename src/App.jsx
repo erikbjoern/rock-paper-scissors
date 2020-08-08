@@ -17,30 +17,27 @@ class App extends Component {
     rightChoice: "",
     winner: "",
     countdown: 7,
-    leftPlayerScore: 0,
-    rightPlayerScore: 0,
+    leftScore: 0,
+    rightScore: 0,
     scoreLimit: 3,
   };
 
   tick = () => {
-    const winner = determineWinner(
-      this.state.leftChoice,
-      this.state.rightChoice
-    );
     const countdown = this.state.countdown;
+    const tickOne = () => {
+      this.setState({ countdown: countdown - 1 });
+    };
 
-    if (countdown >= 2 && countdown < 7) {
-      this.setState(({ countdown }) => ({
-        countdown: countdown - 1,
-      }));
-    } else if (countdown <= 1 && countdown >= -2) {
-      this.setState(({ countdown }) => ({
-        winner: winner,
-        countdown: countdown - 1,
-      }));
-    } else if (countdown <= -3) {
+    if (countdown <= 6 && countdown >= 1) {
+      tickOne();
+    } else if (countdown === 0) {
       this.handleScore();
+      tickOne();
+    } else if (countdown <= -1 && countdown >= -2) {
+      tickOne();
+    } else if (countdown <= -3) {
       this.setState({
+        winner: "",
         countdown: 3,
         leftChoice: "",
         rightChoice: "",
@@ -63,8 +60,8 @@ class App extends Component {
     this.setState({
       countdown: 6,
       winner: "",
-      leftPlayerScore: 0,
-      rightPlayerScore: 0,
+      leftScore: 0,
+      rightScore: 0,
     });
     this.timer = setInterval(() => {
       this.tick();
@@ -72,25 +69,25 @@ class App extends Component {
   };
 
   handleScore = () => {
-    const { winner, leftPlayerScore, rightPlayerScore } = this.state;
+    const { leftChoice, rightChoice, leftScore, rightScore } = this.state;
+    const winner = determineWinner(leftChoice, rightChoice);
 
-    if (winner === "Left player wins") {
-      this.setState({ leftPlayerScore: leftPlayerScore + 1 });
-    }
-    if (winner === "Right player wins") {
-      this.setState({ rightPlayerScore: rightPlayerScore + 1 });
-    }
+    this.setState({ 
+      winner: winner === "Tie!" ? winner : winner + "player wins!",
+      leftScore: winner === "Left" ? leftScore + 1 : leftScore,
+      rightScore: winner === "Right" ? rightScore + 1 : rightScore
+    });
   };
 
   determineFinalWinner = () => {
-    const { rightPlayerScore, leftPlayerScore, scoreLimit } = this.state;
+    const { rightScore, leftScore, scoreLimit } = this.state;
 
-    if (rightPlayerScore === scoreLimit || leftPlayerScore === scoreLimit) {
+    if (rightScore === scoreLimit || leftScore === scoreLimit) {
       this.setState({
         countdown: 7,
         winner: `${
-          rightPlayerScore > leftPlayerScore ? "Right" : "Left"
-        } player wins it all`,
+          rightScore > leftScore ? "Right" : "Left"
+        } player wins it all!`,
       });
       clearInterval(this.timer);
     }
@@ -105,8 +102,8 @@ class App extends Component {
       </button>
     );
 
-    const winner = countdown <= -1 && countdown >= -2 && (
-      <h1 id="winner">{this.state.winner}!</h1>
+    const winner = (countdown === 7 || (countdown <= -1 && countdown >= -2)) && (
+      <h1 id="winner">{this.state.winner}</h1>
     );
 
     const hand = (side) => {
@@ -119,7 +116,7 @@ class App extends Component {
         leftscissors,
       ];
 
-      const revealChoice = countdown <= 0 && countdown >= -2
+      const revealChoice = countdown <= 0 && countdown >= -2;
 
       return determineHand(side, hands, rightChoice, leftChoice, revealChoice);
     };
@@ -127,7 +124,7 @@ class App extends Component {
     const leftPlayer = (
       <img
         className={
-          ((countdown < 5 && countdown > 0) || countdown === -3) &&
+          ((countdown < 5 && countdown > 0) || (countdown === -3 && winner === "")) &&
           "bouncingLeft"
         }
         width="150px"
@@ -141,7 +138,7 @@ class App extends Component {
       <img
         id="rightPlayer"
         className={
-          ((countdown < 5 && countdown > 0) || countdown === -3) &&
+          ((countdown < 5 && countdown > 0) || (countdown === -3 && winner === "")) &&
           "bouncingRight"
         }
         width="150px"
@@ -151,11 +148,12 @@ class App extends Component {
       />
     );
 
-    const makeAChoice = countdown < 1 ? (
-      <p className="slow">too slow!</p>
-    ) : (
-      countdown < 5 && <p className="make-a-choice">make a choice!</p>
-    );
+    const makeAChoice =
+      countdown < 1 ? (
+        <p className="slow">too slow!</p>
+      ) : (
+        countdown < 5 && <p className="make-a-choice">make a choice!</p>
+      );
 
     return (
       <div className="mainContainer">
@@ -176,11 +174,11 @@ class App extends Component {
           </div>
         </div>
         <div className="scoreContainer">
-          <div className="score" id="leftPlayerScore">
-            {this.state.leftPlayerScore}
+          <div className="score" id="leftScore">
+            {this.state.leftScore}
           </div>
-          <div className="score" id="rightPlayerScore">
-            {this.state.rightPlayerScore}
+          <div className="score" id="rightScore">
+            {this.state.rightScore}
           </div>
         </div>
         <HotkeysSheet />

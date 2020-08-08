@@ -61,18 +61,18 @@ describe('Players should see', () => {
   })
   
   it("left player's score", () => {
-    cy.get('#leftPlayerScore').should('contain', '0')
+    cy.get('#leftScore').should('contain', '0')
   })
   
   it("right player's score", () => {
-    cy.get('#rightPlayerScore').should('contain', '0')
+    cy.get('#rightScore').should('contain', '0')
   })
 
   it("winner's score increase", () => {
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })
     cy.wait(5000)
-    cy.get('#leftPlayerScore').should('contain', '1')
+    cy.get('#leftScore').should('contain', '1')
   })
 
   it('the score limit', () => {
