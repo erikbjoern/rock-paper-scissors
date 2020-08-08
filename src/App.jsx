@@ -16,12 +16,34 @@ class App extends Component {
     scoreLimit: 3,
   };
 
+  componentDidMount() {
+    document.addEventListener("keydown", (event) => {
+      this.keydownHandler(event);
+    });
+  }
+
+  keydownHandler = (e) => {
+    this.setState(hotkeyHandler(e.keyCode, this.state.countdown));
+  };
+  
+  startGame = () => {
+    this.setState({
+      countdown: 6,
+      winner: "",
+      leftScore: 0,
+      rightScore: 0,
+    });
+    this.timer = setInterval(() => {
+      this.tick();
+    }, 750);
+  };
+  
   tick = () => {
     const countdown = this.state.countdown;
     this.setState({ countdown: countdown - 1 });
     this.gameHandler(countdown)
   };
-
+  
   gameHandler = (countdown) => {
     if (countdown === 0) {
         this.handleScore();
@@ -37,28 +59,6 @@ class App extends Component {
     }
   };
 
-  keydownHandler = (e) => {
-    this.setState(hotkeyHandler(e.keyCode, this.state.countdown));
-  };
-
-  componentDidMount() {
-    document.addEventListener("keydown", (event) => {
-      this.keydownHandler(event);
-    });
-  }
-
-  startGame = () => {
-    this.setState({
-      countdown: 6,
-      winner: "",
-      leftScore: 0,
-      rightScore: 0,
-    });
-    this.timer = setInterval(() => {
-      this.tick();
-    }, 750);
-  };
-
   handleScore = () => {
     const { leftChoice, rightChoice, leftScore, rightScore } = this.state;
     const winner = determineWinner(leftChoice, rightChoice);
@@ -69,7 +69,7 @@ class App extends Component {
       rightScore: winner === "Right" ? rightScore + 1 : rightScore
     });
   };
-
+  
   determineFinalWinner = () => {
     const { rightScore, leftScore, scoreLimit } = this.state;
 
