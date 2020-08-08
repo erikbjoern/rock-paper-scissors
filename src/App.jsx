@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Countdown from "./components/Countdown";
 import HotkeysSheet from "./components/HotkeysSheet";
-import Hand from './components/Hand'
+import Players from './components/Players'
 import { determineWinner } from "./helpers/determineWinner";
 import { hotkeyHandler } from "./helpers/hotkeyHandler";
 
@@ -98,13 +98,6 @@ class App extends Component {
       <h1 id="winner">{this.state.winner}</h1>
     );
 
-    const makeAChoice =
-      countdown < 1 ? (
-        <p className="slow">too slow!</p>
-      ) : (
-        countdown < 5 && <p className="make-a-choice">make a choice!</p>
-      );
-
     return (
       <div className="mainContainer">
         <div className="headerContainer">
@@ -113,25 +106,12 @@ class App extends Component {
           <Countdown countdown={countdown} />
           {winner}
         </div>
-        <div className="playerContainer">
-          <div className="leftPlayer">
-            {!leftChoice && makeAChoice}
-            <Hand 
-              side="Left"
-              choice={leftChoice}
-              countdown={countdown}
-              winner={winner}
-            />
-          </div>
-          <div className="rightPlayer">
-            {!rightChoice && makeAChoice}
-            <Hand 
-              side="Right"
-              choice={rightChoice}
-              countdown={countdown}
-            />
-          </div>
-        </div>
+        <Players
+          countdown={countdown}
+          rightChoice={rightChoice}
+          leftChoice={leftChoice}
+          winner={winner}
+        />
         <div className="scoreContainer">
           <div className="score" id="leftScore">
             {this.state.leftScore}
