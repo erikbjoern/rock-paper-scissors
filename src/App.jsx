@@ -24,18 +24,15 @@ class App extends Component {
 
   tick = () => {
     const countdown = this.state.countdown;
-    const tickOne = () => {
-      this.setState({ countdown: countdown - 1 });
-    };
+    this.setState({ countdown: countdown - 1 });
+    this.gameHandler(countdown)
+  };
 
-    if (countdown <= 6 && countdown >= 1) {
-      tickOne();
-    } else if (countdown === 0) {
-      this.handleScore();
-      tickOne();
-    } else if (countdown <= -1 && countdown >= -2) {
-      tickOne();
-    } else if (countdown <= -3) {
+  gameHandler = (countdown) => {
+    if (countdown === 0) {
+        this.handleScore();
+    }
+    if (countdown === -3) {
       this.setState({
         winner: "",
         countdown: 3,
@@ -72,7 +69,7 @@ class App extends Component {
     const { leftChoice, rightChoice, leftScore, rightScore } = this.state;
     const winner = determineWinner(leftChoice, rightChoice);
 
-    this.setState({ 
+    this.setState({
       winner: winner === "Tie!" ? winner : winner + "player wins!",
       leftScore: winner === "Left" ? leftScore + 1 : leftScore,
       rightScore: winner === "Right" ? rightScore + 1 : rightScore
@@ -102,7 +99,8 @@ class App extends Component {
       </button>
     );
 
-    const winner = (countdown === 7 || (countdown <= -1 && countdown >= -2)) && (
+    const winner = (countdown === 7 ||
+      (countdown <= -1 && countdown >= -2)) && (
       <h1 id="winner">{this.state.winner}</h1>
     );
 
@@ -124,7 +122,8 @@ class App extends Component {
     const leftPlayer = (
       <img
         className={
-          ((countdown < 5 && countdown > 0) || (countdown === -3 && winner === "")) &&
+          ((countdown < 5 && countdown > 0) ||
+            (countdown === -3 && winner === "")) &&
           "bouncingLeft"
         }
         width="150px"
@@ -138,7 +137,8 @@ class App extends Component {
       <img
         id="rightPlayer"
         className={
-          ((countdown < 5 && countdown > 0) || (countdown === -3 && winner === "")) &&
+          ((countdown < 5 && countdown > 0) ||
+            (countdown === -3 && winner === "")) &&
           "bouncingRight"
         }
         width="150px"
