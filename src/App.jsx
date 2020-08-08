@@ -4,12 +4,6 @@ import HotkeysSheet from "./components/HotkeysSheet";
 import { determineHand } from "./helpers/determineHand";
 import { determineWinner } from "./helpers/determineWinner";
 import { hotkeyHandler } from "./helpers/hotkeyHandler";
-import rightrock from "./images/right-rock.png";
-import rightpaper from "./images/right-paper.png";
-import rightscissors from "./images/right-scissors.png";
-import leftrock from "./images/left-rock.png";
-import leftpaper from "./images/left-paper.png";
-import leftscissors from "./images/left-scissors.png";
 
 class App extends Component {
   state = {
@@ -105,18 +99,8 @@ class App extends Component {
     );
 
     const hand = (side) => {
-      const hands = [
-        rightrock,
-        rightpaper,
-        rightscissors,
-        leftrock,
-        leftpaper,
-        leftscissors,
-      ];
-
-      const revealChoice = countdown <= 0 && countdown >= -2;
-
-      return determineHand(side, hands, rightChoice, leftChoice, revealChoice);
+      const revealChoice = countdown <= 0 && countdown >= -3;
+      return determineHand(side, rightChoice, leftChoice, revealChoice);
     };
 
     const leftPlayer = (
