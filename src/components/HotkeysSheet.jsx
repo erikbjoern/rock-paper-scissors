@@ -3,11 +3,11 @@ import React from 'react'
 const HotkeysSheet = () => {
   return (
     <table className="hotkeysSheet">
-      <caption style={{color: "#cdffcd", marginLeft: "-15px"}}>Hotkeys</caption>
+      <caption style={{marginLeft: "-15px"}}>Hotkeys</caption>
       <tr>
-        <th style={{color: "#cdffcd"}}>Left player</th>
+        <th>Left player</th>
         <td></td>
-        <th style={{color: "#cdffcd"}}>Right player</th>
+        <th>Right player</th>
       </tr>
       <tr align="center">
         <td>1</td>
