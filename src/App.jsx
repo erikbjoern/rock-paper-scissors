@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Countdown from "./components/Countdown";
 import HotkeysSheet from "./components/HotkeysSheet";
-import { determineHand } from "./helpers/determineHand";
+import Hand from './components/Hand'
 import { determineWinner } from "./helpers/determineWinner";
 import { hotkeyHandler } from "./helpers/hotkeyHandler";
 
@@ -98,40 +98,6 @@ class App extends Component {
       <h1 id="winner">{this.state.winner}</h1>
     );
 
-    const hand = (side) => {
-      const revealChoice = countdown <= 0 && countdown >= -3;
-      return determineHand(side, rightChoice, leftChoice, revealChoice);
-    };
-
-    const leftPlayer = (
-      <img
-        className={
-          ((countdown < 5 && countdown > 0) ||
-            (countdown === -3 && winner === "")) &&
-          "bouncingLeft"
-        }
-        width="150px"
-        height="150px"
-        src={hand("left")}
-        alt="left player's choice"
-      />
-    );
-
-    const rightPlayer = (
-      <img
-        id="rightPlayer"
-        className={
-          ((countdown < 5 && countdown > 0) ||
-            (countdown === -3 && winner === "")) &&
-          "bouncingRight"
-        }
-        width="150px"
-        height="150px"
-        src={hand("right")}
-        alt="right player's choice"
-      />
-    );
-
     const makeAChoice =
       countdown < 1 ? (
         <p className="slow">too slow!</p>
@@ -150,11 +116,20 @@ class App extends Component {
         <div className="playerContainer">
           <div className="leftPlayer">
             {!leftChoice && makeAChoice}
-            {leftPlayer}
+            <Hand 
+              side="Left"
+              choice={leftChoice}
+              countdown={countdown}
+              winner={winner}
+            />
           </div>
           <div className="rightPlayer">
             {!rightChoice && makeAChoice}
-            {rightPlayer}
+            <Hand 
+              side="Right"
+              choice={rightChoice}
+              countdown={countdown}
+            />
           </div>
         </div>
         <div className="scoreContainer">
