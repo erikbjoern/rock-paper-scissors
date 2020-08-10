@@ -95,13 +95,13 @@ class App extends Component {
 
     const winner = (countdown === 7 ||
       (countdown <= -1 && countdown >= -2)) && (
-      <h1 id="winner">{this.state.winner}</h1>
+      <h1 id="winner" className="primaryText">{this.state.winner}</h1>
     );
 
     return (
       <div className="mainContainer">
         <div className="headerContainer">
-          <h1 id="scoreLimit">First to {this.state.scoreLimit} wins!</h1>
+          <h1 id="scoreLimit" className="secondaryText">First to {this.state.scoreLimit} wins!</h1>
           {startButton}
           <Countdown countdown={countdown} />
           {winner}
