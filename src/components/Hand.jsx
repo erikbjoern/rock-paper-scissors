@@ -43,8 +43,8 @@ const Hand = ({ side, choice, countdown, winner }) => {
   }
 
   const bouncingHand = () => (
-    ((countdown < 5 && countdown > 0) || (countdown === -3 && winner === "")) &&
-      `bouncing${side}`
+    (((countdown < 5 && countdown > 0) || (countdown === -3 && !winner)) &&
+      `bouncing${side}`) || ""
   );
 
   return (

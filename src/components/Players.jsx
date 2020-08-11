@@ -1,19 +1,23 @@
 import React from 'react'
 import Hand from './Hand'
 
-const Players = ({countdown, rightChoice, leftChoice, winner}) => {
-  const makeAChoice =
+const Players = ({ countdown, rightChoice, leftChoice, winner }) => {
+  const makeAChoice = (side) =>
     countdown < 1 ? (
       <p className="slow">too slow!</p>
     ) : (
-      countdown < 5 && <p className="make-a-choice">make a choice!</p>
-    );
+        countdown < 5 &&
+        <div className="make-a-choice">
+          <p >make a choice!</p>
+          <div className={`fuse${side}`} ></div>
+        </div>
+      );
 
   return (
     <div className="playerContainer">
       <div className="leftPlayer">
-        {!leftChoice && makeAChoice}
-        <Hand 
+        {!leftChoice && makeAChoice("Left")}
+        <Hand
           side="Left"
           choice={leftChoice}
           countdown={countdown}
@@ -21,8 +25,8 @@ const Players = ({countdown, rightChoice, leftChoice, winner}) => {
         />
       </div>
       <div className="rightPlayer">
-        {!rightChoice && makeAChoice}
-        <Hand 
+        {!rightChoice && makeAChoice("Right")}
+        <Hand
           side="Right"
           choice={rightChoice}
           countdown={countdown}
