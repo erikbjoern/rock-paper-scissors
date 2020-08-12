@@ -30,19 +30,42 @@
   }
 }
 
-@keyframes burnDown {
+@keyframes fuse {
   0% {
-    background-color: #f1d969;
-    width: 100%;
+    animation-timing-function: ease-in;
+    stroke: #f1d86900;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke: #f1d969;
+    stroke-dashoffset: -500;
   }
   100% {
-    background-color: crimson;
-    width: 0;
+    stroke: rgb(230, 0, 46);
+    stroke-dashoffset: -1000;
   }
 }
 
 body {
   margin: 0;
+}
+
+.primaryText,
+.slow,
+.make-a-choice,
+.score,
+.startButton {  
+  font-family: 'Bangers', cursive !important;
+  color: #12240a;
+  font-size: 300%;
+  letter-spacing: 0.3rem;
+  text-align: center;
+}
+
+.secondaryText {
+  font-family: monospace;
+  color: #cdffcd;
+  text-align: center;
 }
 
 .background {
@@ -85,17 +108,47 @@ body {
 }
 
 .playerContainer {
-  display: flex; 
+  display: grid; 
   justify-content: space-between;
-  width: 600px;
-  height: 300px;
+  width: 900px;
 }
 
-.scoreContainer {
+.leftPlayer,
+.rightPlayer {
+  grid-row: 1;
+  grid-column: 1;
   display: flex;
-  justify-content: space-between;
-  width: 500px;
-  margin-top: 50px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 350px;
+  height: 280px;
+  padding: 70px 0 0;
+}
+
+.lFuseContainer,
+.rFuseContainer {
+  transform: rotate(-90deg);
+  height: 350px;
+  width: 350px;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.rightPlayer,
+.rFuseContainer {
+  grid-column: 3;
+}
+
+.fuse {
+  stroke-width: 8;
+  stroke-dasharray: 1000;
+  animation: fuse 2.25s linear;
+  stroke-linecap: round;
+}
+
+circle {
+  fill: none;
 }
 
 .bouncingRight {
@@ -106,54 +159,23 @@ body {
   animation: bouncingLeft 0.75s 0.5s infinite;
 }
 
-.leftPlayer,
-.rightPlayer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  text-align: center;
-  width: fit-content;
-}
-
-.primaryText,
-.slow,
-.make-a-choice,
-.score,
-.startButton {  
-  font-family: 'Bangers', cursive !important;
-  color: #12240a;
-  font-size: 300%;
-  letter-spacing: 0.3rem;
-  text-align: center;
-}
-
-.secondaryText {
-  font-family: monospace;
-  color: #cdffcd;
-  text-align: center;
-}
-
 .make-a-choice {
-  width: fit-content;
-  margin-bottom: 50px;
   color: #f1d969;
   font-size: 150%;
   letter-spacing: 0.1em;
-  margin-bottom: 50px;
-}
-
-.fuseLeft,
-.fuseRight {
-  animation: burnDown 1.9s linear;
-  height: 5px;
 }
 
 .slow {
   color: crimson;
   font-size: 150%;
   letter-spacing: 0.05em;
-  margin-bottom: 50px;
+}
+
+.scoreContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  margin-top: 50px;
 }
 
 .score {

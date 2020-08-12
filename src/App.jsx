@@ -45,17 +45,24 @@ class App extends Component {
   };
   
   gameHandler = (countdown) => {
-    if (countdown === 0) {
-        this.handleScore();
-    }
-    if (countdown === -3) {
-      this.setState({
-        winner: "",
-        countdown: 3,
-        leftChoice: "",
-        rightChoice: "",
-      });
-      this.determineFinalWinner();
+
+    switch (countdown) {
+      case 0: 
+        this.handleScore()
+        break
+      case -2: 
+        this.determineFinalWinner();
+        break
+      case -3:
+        this.setState({
+          winner: "",
+          countdown: 3,
+          leftChoice: "",
+          rightChoice: "",
+        });
+        break
+      default:
+        break
     }
   };
 

@@ -23,7 +23,7 @@ const Hand = ({ side, choice, countdown, winner }) => {
   const rock = side === "Right" ? rightrock : leftrock;
   const paper = side === "Right" ? rightpaper : leftpaper;
   const scissors = side === "Right" ? rightscissors : leftscissors;
-  const revealChoice = countdown <= 0 && countdown >= -3;
+  const revealChoice = countdown <= 0 && countdown >= -2;
 
   let source;
 
@@ -42,10 +42,10 @@ const Hand = ({ side, choice, countdown, winner }) => {
       break
   }
 
-  const bouncingHand = () => (
-    (((countdown < 5 && countdown > 0) || (countdown === -3 && !winner)) &&
-      `bouncing${side}`) || ""
-  );
+  const bouncingHand = () => {
+    return ((countdown < 5 && countdown > 0) || countdown === -3) ?
+      `bouncing${side}` : ""
+  };
 
   return (
     <img
