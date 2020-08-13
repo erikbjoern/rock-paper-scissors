@@ -1,16 +1,16 @@
-import React from 'react'
-import Hand from './Hand'
+import React from "react";
+import Hand from "./Hand";
 
-const Players = ({ countdown, rightChoice, leftChoice, winner }) => {
-  const fuse = countdown < 4 && countdown > 0 ? "fuse": "";
+const Players = ({ countdown, rightChoice, leftChoice }) => {
+  const countingDown = countdown <= 3 && countdown >= 1;
+  const tooSlow = countdown <= 0 && countdown >= -2;
 
-  const makeAChoice = (side) =>
-    countdown < 1 ? (
-      <p className="slow">too slow!</p>
-    ) : (
-        countdown < 4 &&
-          <p className="make-a-choice">make a choice!</p>
-      );
+  const makeAChoice = (
+    <>
+      {countingDown && <p className="make-a-choice">make a choice!</p>}
+      {tooSlow && <p className="slow">too slow!</p>}
+    </>
+  );
 
   return (
     <div className="playerContainer">
@@ -19,27 +19,35 @@ const Players = ({ countdown, rightChoice, leftChoice, winner }) => {
           side="Left"
           choice={leftChoice}
           countdown={countdown}
-          winner={winner}
         />
-        {!leftChoice && makeAChoice("Left")}
+        {!leftChoice && makeAChoice}
       </div>
       <svg className="lFuseContainer">
-        <circle className={fuse} cx="175" cy="175" r="150" />
+        <circle
+          className={countingDown ? "fuse" : ""}
+          cx="175"
+          cy="175"
+          r="150"
+        />
       </svg>
       <div className="rightPlayer">
         <Hand
           side="Right"
           choice={rightChoice}
           countdown={countdown}
-          winner={winner}
         />
-        {!rightChoice && makeAChoice("Right")}
+        {!rightChoice && makeAChoice}
       </div>
       <svg className="rFuseContainer">
-        <circle className={fuse} cx="175" cy="175" r="150" />
+        <circle
+          className={countingDown ? "fuse" : ""}
+          cx="175"
+          cy="175"
+          r="150"
+        />
       </svg>
     </div>
-  )
-}
+  );
+};
 
-export default Players
+export default Players;

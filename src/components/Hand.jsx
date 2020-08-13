@@ -6,7 +6,7 @@ import leftrock from "../images/leftrock.png";
 import leftpaper from "../images/leftpaper.png";
 import leftscissors from "../images/leftscissors.png";
 
-const Hand = ({ side, choice, countdown, winner }) => {
+const Hand = ({ side, choice, countdown }) => {
   const hands = [
     rightrock,
     rightpaper,
@@ -42,14 +42,19 @@ const Hand = ({ side, choice, countdown, winner }) => {
       break
   }
 
-  const bouncingHand = () => {
-    return ((countdown < 5 && countdown > 0) || countdown === -3) ?
-      `bouncing${side}` : ""
+  const handAnimation = () => {
+    if (!revealChoice && countdown <= 4) {
+      return `bouncing${side}`
+    } else if (revealChoice && choice === "") {
+      return `slow${side}`
+    } else {
+      return ""
+    }
   };
 
   return (
     <img
-      className={bouncingHand(side)}
+      className={handAnimation(side)}
       width="150px"
       height="150px"
       src={source}

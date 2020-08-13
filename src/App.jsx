@@ -45,7 +45,6 @@ class App extends Component {
   };
   
   gameHandler = (countdown) => {
-
     switch (countdown) {
       case 0: 
         this.handleScore()
@@ -117,7 +116,6 @@ class App extends Component {
           countdown={countdown}
           rightChoice={rightChoice}
           leftChoice={leftChoice}
-          winner={winner}
         />
         <div className="scoreContainer">
           <div className="score" id="leftScore">
