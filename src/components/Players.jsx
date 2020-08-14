@@ -9,7 +9,7 @@ const Players = ({ countdown, rightChoice, leftChoice }) => {
     <div className="makeAChoiceContainer">
       {countingDown && (
         <>
-          <p className="make-a-choice">make a choice!</p>
+          <p className="makeAChoice">make a choice!</p>
           <div className="fuse" />
         </>
       )}

@@ -10,37 +10,37 @@ const HotkeysSheet = () => {
   return (
     <div className="hotkeysContainer">
       <div className="leftHotkeys">
-        <h5 className="secondaryText">
+        <h3 className="secondaryText">
           Hotkeys
-        </h5>
+        </h3>
         <div>
-        <img className="icon" src={leftrock} alt="icon"/>
+        <img className="icon" src={leftrock} alt="rock icon"/>
           <p className="key">1</p>
         </div>
         <div>
-          <img className="icon" src={leftpaper} alt="icon"/>
+          <img className="icon" src={leftpaper} alt="paper icon"/>
           <p className="key">2</p>
         </div>
         <div>
-          <img className="icon" src={leftscissors} alt="icon"/>
+          <img className="icon" src={leftscissors} alt="scissors icon"/>
           <p className="key">3</p>
         </div>
       </div>
       <div className="rightHotkeys">
-        <h5 className="secondaryText">
+        <h3 className="secondaryText">
           Hotkeys
-        </h5>
+        </h3>
         <div>
           <p className="key">🡐</p>
-          <img className="icon" src={rightrock} alt="icon" />
+          <img className="icon" src={rightrock} alt="rock icon" />
         </div>
         <div>
           <p className="key">🡑</p>
-          <img className="icon" src={rightpaper} alt="icon"/>
+          <img className="icon" src={rightpaper} alt="paper icon"/>
         </div>
         <div>
           <p className="key">🡒</p>
-          <img className="icon" src={rightscissors} alt="icon"/>
+          <img className="icon" src={rightscissors} alt="scissors icon"/>
         </div>
       </div>
     </div>

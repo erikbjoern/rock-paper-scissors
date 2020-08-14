@@ -8,7 +8,7 @@ const Countdown = ({countdown}) => {
   const scissors = countdown <= 1 && countdown >= 1 && <p> scissors </p>
   
   return (
-    <div className="primaryText"  id="countdown">
+    <div id="countdown">
       {getReady}
       {rock}
       {paper}

@@ -91,7 +91,7 @@ class App extends Component {
   };
 
   render() {
-    const { leftChoice, rightChoice, countdown } = this.state;
+    const { countdown, leftChoice, rightChoice, leftScore, rightScore } = this.state;
 
     const startButton = countdown === 7 && (
       <button id="start-game" className="startButton" onClick={this.startGame}>
@@ -101,7 +101,7 @@ class App extends Component {
 
     const winner = (countdown === 7 ||
       (countdown <= -1 && countdown >= -2)) && (
-      <h1 id="winner" className="primaryText">{this.state.winner}</h1>
+      <h1 id="winner">{this.state.winner}</h1>
     );
 
     return (
@@ -117,14 +117,15 @@ class App extends Component {
           rightChoice={rightChoice}
           leftChoice={leftChoice}
         />
-        <div className="scoreContainer">
-          <div className="score" id="leftScore">
-            {this.state.leftScore}
+        <div className="score">
+          <div id="leftScore">
+            {leftScore}
           </div>
-          <div className="score" id="rightScore">
-            {this.state.rightScore}
+          -
+          <div id="rightScore">
+            {rightScore}
           </div>
-        </div>
+      </div>
         <HotkeysSheet />
       </div>
     );

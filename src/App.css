@@ -1,3 +1,7 @@
+:root {
+  --primaryColor: #f1d969;
+}
+
 @font-face {
   font-family: 'Bangers';
   src: local('Bangers'), url(./fonts/Bangers-Regular.ttf) format('truetype');
@@ -6,6 +10,18 @@
 @keyframes countdown {
   from {
     transform: scale(0);
+  }
+}
+
+@keyframes singleRowCountdown {
+  from {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1);
+  }
+  100% {
+    visibility: hidden;
   }
 }
 
@@ -29,23 +45,23 @@
 
 @keyframes slowRight {
   to {
-    transform: translate(-10px, 20px) rotate(-9deg);
+    transform: translate(0px, 20px) rotate(-8deg);
   }
 }
 
 @keyframes slowLeft {
   to {
-    transform: translate(10px, 20px) rotate(9deg);
+    transform: translate(0px, 20px) rotate(8deg);
   }
 }
 
 @keyframes fuse {
   0% {
-    background-color: #f5d25e;
+    background-color: var(--primaryColor);
     width: 100%;
   }
   30% {
-    background-color: #f5d25e;
+    background-color: var(--primaryColor);
   }
   100% {
     background-color: red;
@@ -57,29 +73,20 @@ body {
   margin: 0;
 }
 
-.primaryText,
-.slow,
-.make-a-choice,
-.score,
-.startButton {  
+div {  
   font-family: 'Bangers', cursive !important;
-  color: #12240a;
-  font-size: 300%;
-  letter-spacing: 0.3rem;
   text-align: center;
 }
 
 .secondaryText {
   font-family: monospace;
   color: #cdffcd;
-  text-align: center;
 }
 
 .background {
   background-color: #87a658;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
 }
 
 .mainContainer {
@@ -91,6 +98,7 @@ body {
 }
 
 .headerContainer {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,10 +109,13 @@ body {
 #countdown {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 #countdown *,
 #winner {
+  font-size: 7vh;
+  color: #12240a;
   animation: countdown 0.3s;
   padding: 0;
   margin: 0;
@@ -115,22 +126,20 @@ body {
 }
 
 .playerContainer {
-  display: grid; 
+  position: relative;
+  top: calc(55vh - 120px);
+  display: flex; 
   justify-content: space-between;
-  width: 900px;
+  width: 67vw;
 }
 
 .leftPlayer,
 .rightPlayer {
-  grid-row: 1;
-  grid-column: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 350px;
-  height: 280px;
-  padding: 70px 0 0;
+  width: 200px;
 }
 
 .makeAChoiceContainer {
@@ -139,30 +148,19 @@ body {
   align-items: flex-start;
   width: fit-content;
   margin-top: 15px;
+  height: 100px;
+}
+
+.makeAChoice {
+  color: var(--primaryColor);
+  font-size: 150%;
+  letter-spacing: 0.1em;
 }
 
 .fuse {
   height: 5px;
   animation: fuse 2.25s ease-out;
-  margin-top: -15px;
-}
-
-.rightPlayer {
-  grid-column: 3;
-}
-
-.bouncingRight {
-  animation: bouncingRight 0.75s 0.5s infinite;
-}
-
-.bouncingLeft {
-  animation: bouncingLeft 0.75s 0.5s infinite;
-}
-
-.make-a-choice {
-  color: #f1d969;
-  font-size: 150%;
-  letter-spacing: 0.1em;
+  margin-top: -1vh;
 }
 
 .slow {
@@ -179,25 +177,30 @@ body {
   animation: slowLeft 0.35s 0.5s forwards;
 }
 
-.scoreContainer {
-  display: flex;
-  justify-content: space-between;
-  width: 600px;
-  margin-top: 50px;
+.bouncingRight {
+  animation: bouncingRight 0.75s 0.5s infinite;
+}
+
+.bouncingLeft {
+  animation: bouncingLeft 0.75s 0.5s infinite;
 }
 
 .score {
-  color: #f5d25e;
+  position: absolute;
+  bottom: 5vh;
+  display: flex;
+  justify-content: space-between;
+  width: 20vw;
+  color: var(--primaryColor);
   font-size: 500%;
 }
 
 .startButton {
   font-size: 200%;
-  letter-spacing: unset;
   padding: 15px;
   border: 2px solid #cc9c49;
   border-radius: 5px;
-  background-color: #f5d25e;
+  background-color: var(--primaryColor);
   cursor: pointer;
   z-index: 1;
 }
@@ -205,11 +208,14 @@ body {
 .hotkeysContainer {
   position: absolute;
   bottom: 0;
-  height: 70%;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+
+.leftHotkeys,
+.rightHotkeys {
+  margin: 50px 0;
 }
 
 .leftHotkeys div,
@@ -232,8 +238,43 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px inset #f5d25e;
+  border: 2px inset var(--primaryColor);
   border-radius: 2px;
-  color: #f5d25e;
+  color: var(--primaryColor);
   font-family: sans-serif;
+}
+
+@media only screen and (max-width: 800px) {
+  .score {
+    width: calc(67vw - 150px);
+    font-size: 10vh;
+  }
+
+  .makeAChoice,
+  .slow {
+    font-size: 3.5vw;
+    letter-spacing: 0;
+  }
+
+  .leftHotkeys,
+  .rightHotkeys {
+    margin: calc(-55px + 13vw) 0;
+  }
+
+  .leftHotkeys div,
+  .rightHotkeys div {
+    margin: 0 calc(-55px + 13vw);
+  }
+}
+
+@media only screen and (max-height: 600px) and (max-width: 800px) {
+  #countdown * {
+    position: absolute;
+    animation: singleRowCountdown 0.5s forwards;
+  }
+
+  #winner {
+    position: absolute;
+    top: 40px;
+  }
 }
