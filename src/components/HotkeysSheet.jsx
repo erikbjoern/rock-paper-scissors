@@ -8,9 +8,9 @@ import leftscissors from "../images/leftscissors.png";
 
 const HotkeysSheet = () => {
   return (
-    <div className="hotkeysContainer">
-      <div className="leftHotkeys">
-        <h3 className="secondaryText">
+    <div className="hotkeys-container">
+      <div className="left-hotkeys">
+        <h3 className="secondary-text">
           Hotkeys
         </h3>
         <div>
@@ -26,8 +26,8 @@ const HotkeysSheet = () => {
           <p className="key">3</p>
         </div>
       </div>
-      <div className="rightHotkeys">
-        <h3 className="secondaryText">
+      <div className="right-hotkeys">
+        <h3 className="secondary-text">
           Hotkeys
         </h3>
         <div>

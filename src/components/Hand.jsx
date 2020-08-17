@@ -20,9 +20,9 @@ const Hand = ({ side, choice, countdown }) => {
     new Image().src = img;
   });
 
-  const rock = side === "Right" ? rightrock : leftrock;
-  const paper = side === "Right" ? rightpaper : leftpaper;
-  const scissors = side === "Right" ? rightscissors : leftscissors;
+  const rock = side === "right" ? rightrock : leftrock;
+  const paper = side === "right" ? rightpaper : leftpaper;
+  const scissors = side === "right" ? rightscissors : leftscissors;
   const revealChoice = countdown <= 0 && countdown >= -2;
 
   let source;
@@ -44,9 +44,9 @@ const Hand = ({ side, choice, countdown }) => {
 
   const handAnimation = () => {
     if (!revealChoice && countdown <= 4) {
-      return `bouncing${side}`
+      return `bouncing-${side}`
     } else if (revealChoice && choice === "") {
-      return `slow${side}`
+      return `slow-${side}`
     } else {
       return ""
     }

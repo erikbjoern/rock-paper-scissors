@@ -4,8 +4,8 @@ describe('Players start the game manually', () => {
   })
 
   it('by clicking "Start!"', () => {
-    cy.get('#start-game').should('contain', 'Start!')
-    cy.get('#start-game').click()
+    cy.get('#start-button').should('contain', 'Start!')
+    cy.get('#start-button').click()
     cy.get('#countdown').should('contain', 'rock')
     cy.get('#countdown').should('contain', 'paper')
     cy.get('#countdown').should('contain', 'scissors')

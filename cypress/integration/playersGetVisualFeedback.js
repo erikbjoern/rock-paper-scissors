@@ -1,7 +1,7 @@
 describe('Players should see', () => {
   beforeEach(() => {
     cy.visit('/')
-    cy.get('#start-game').click()
+    cy.get('#start-button').click()
   })
 
   it('a timer countdown', () => {
@@ -17,19 +17,19 @@ describe('Players should see', () => {
   })
 
   it('a representation of left player', () => {
-    cy.get('#leftPlayer').should('be.visible')
+    cy.get('#left-player').should('be.visible')
   })
 
   it('a representation of right player', () => {
-    cy.get('#rightPlayer').should('be.visible')
+    cy.get('#right-player').should('be.visible')
   })
 
   it('a call to make a choice until a choice is made', () => {
-    cy.get("#leftPlayer").within(() => {
+    cy.get("#left-player").within(() => {
       cy.get('.make-a-choice').should('contain', 'make a choice!')
     })
     cy.get('body').trigger('keydown', { keyCode: 49 })
-    cy.get("#leftPlayer").within(() => {
+    cy.get("#left-player").within(() => {
       cy.get('.make-a-choice').should('not.be.visible')
     })
   })
@@ -38,14 +38,14 @@ describe('Players should see', () => {
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })
     cy.wait(4000)
-    cy.get('#leftPlayerChoice').should('be.visible')
+    cy.get('#left-playerChoice').should('be.visible')
   })
 
   it("right player's choice after countdown", () => {
     cy.get('body').trigger('keydown', { keyCode: 49 })
     cy.get('body').trigger('keydown', { keyCode: 39 })
     cy.wait(4000)
-    cy.get('#rightPlayerChoice').should('be.visible')
+    cy.get('#right-playerChoice').should('be.visible')
   })
   
   it('the winner after countdown', () => {

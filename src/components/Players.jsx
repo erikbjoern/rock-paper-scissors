@@ -6,10 +6,10 @@ const Players = ({ countdown, rightChoice, leftChoice }) => {
   const tooSlow = countdown <= 0 && countdown >= -2;
 
   const makeAChoice = (
-    <div className="makeAChoiceContainer">
+    <div className="make-a-choice-container">
       {countingDown && (
         <>
-          <p className="makeAChoice">make a choice!</p>
+          <p className="make-a-choice">make a choice!</p>
           <div className="fuse" />
         </>
       )}
@@ -18,13 +18,13 @@ const Players = ({ countdown, rightChoice, leftChoice }) => {
   );
 
   return (
-    <div className="playerContainer">
-      <div className="leftPlayer">
-        <Hand side="Left" choice={leftChoice} countdown={countdown} />
+    <div className="player-container">
+      <div className="left-player">
+        <Hand side="left" choice={leftChoice} countdown={countdown} />
         {!leftChoice && makeAChoice}
       </div>
-      <div className="rightPlayer">
-        <Hand side="Right" choice={rightChoice} countdown={countdown} />
+      <div className="right-player">
+        <Hand side="right" choice={rightChoice} countdown={countdown} />
         {!rightChoice && makeAChoice}
       </div>
     </div>

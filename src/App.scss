@@ -1,0 +1,275 @@
+$primary-color: #f1d969;
+$primary-font-family: 'Bangers', cursive;
+
+@mixin flex-column($align) {
+  align-items: $align;
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin centered-flex-row($justification) {
+  align-items: center;
+  display: flex;
+  justify-content: $justification;
+}
+
+@font-face {
+  font-family: 'Bangers';
+  src: local('Bangers'), url(./fonts/Bangers-Regular.ttf) format('truetype');
+}
+
+@keyframes countdown {
+  from {
+    transform: scale(0);
+  }
+}
+
+@keyframes single-row-countdown {
+  from {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1);
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+
+@keyframes bouncing-right {
+  0%,
+  50%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(20px, -70px) rotate(9deg);
+  }
+}
+
+@keyframes bouncing-left {
+  0%,
+  50%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-20px, -70px) rotate(-9deg);
+  }
+}
+
+@keyframes slow-right {
+  to {
+    transform: translate(0px, 20px) rotate(-8deg);
+  }
+}
+
+@keyframes slow-left {
+  to {
+    transform: translate(0px, 20px) rotate(8deg);
+  }
+}
+
+@keyframes fuse {
+  0% {
+    background-color: $primary-color;
+    width: 100%;
+  }
+  30% {
+    background-color: $primary-color;
+  }
+  100% {
+    background-color: red;
+    width: 0;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+div {
+  font-family: $primary-font-family;
+  text-align: center;
+}
+
+.secondary-text {
+  color: #cdffcd;
+  font-family: monospace;
+}
+
+.background {
+  background-color: #87a658;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main-container {
+  @include flex-column(center);
+  height: 100%;
+  width: 100%;
+}
+
+.header-container {
+  @include flex-column(center);
+  height: 200px;
+  padding-top: 2vh;
+  position: absolute;
+}
+
+#countdown {
+  @include flex-column(center);
+}
+
+#countdown *,
+#winner {
+  animation: countdown .3s;
+  color: #12240a;
+  font-size: 7vh;
+  margin: 0;
+  padding: 0;
+}
+
+#winner {
+  margin-top: 30px;
+}
+
+.player-container {
+  @include centered-flex-row(space-between);
+  position: relative;
+  top: calc(55vh - 120px);
+  width: 67vw;
+}
+
+.left-player,
+.right-player {
+  @include flex-column(center);
+  text-align: center;
+  width: 200px;
+}
+
+.make-a-choice-container {
+  @include flex-column(flex-start);
+  height: 100px;
+  margin-top: 15px;
+  width: fit-content;
+}
+
+.make-a-choice {
+  color: $primary-color;
+  font-size: 150%;
+  letter-spacing: .1em;
+}
+
+.fuse {
+  animation: fuse 2.25s ease-out;
+  height: 5px;
+  margin-top: -1vh;
+}
+
+.slow {
+  color: crimson;
+  font-size: 150%;
+  letter-spacing: .05em;
+}
+
+.slow-right {
+  animation: slow-right .35s .5s forwards;
+}
+
+.slow-left {
+  animation: slow-left .35s .5s forwards;
+}
+
+.bouncing-right {
+  animation: bouncing-right .75s .5s infinite;
+}
+
+.bouncing-left {
+  animation: bouncing-left .75s .5s infinite;
+}
+
+.score {
+  @include centered-flex-row(space-between);
+  bottom: 5vh;
+  color: $primary-color;
+  font-size: 500%;
+  position: absolute;
+  width: 20vw;
+}
+
+#start-button {
+  background-color: $primary-color;
+  border-radius: 5px;
+  border: 2px solid #cc9c49;
+  cursor: pointer;
+  font: 200% $primary-font-family;
+  padding: 15px;
+  z-index: 1;
+}
+
+.hotkeys-container {
+  @include centered-flex-row(space-between);
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.left-hotkeys,
+.right-hotkeys {
+  margin: 50px 0;
+  & div {
+    @include centered-flex-row(space-between);
+    margin: 0 50px;
+    width: 70px;
+  }
+}
+
+.icon {
+  height: 25px;
+  width: 25px;
+}
+
+.key {
+  @include centered-flex-row(center);
+  border-radius: 2px;
+  border: 2px inset $primary-color;
+  color: $primary-color;
+  font-family: sans-serif;
+  height: 25px;
+  width: 25px;
+}
+
+@media only screen and (max-width: 800px) {
+  .score {
+    font-size: 10vh;
+    width: calc(67vw - 150px);
+  }
+
+  .make-a-choice,
+  .slow {
+    font-size: 3.5vw;
+    letter-spacing: 0;
+  }
+
+  .left-hotkeys,
+  .right-hotkeys {
+    margin: calc(-55px + 13vw) 0;
+    & div {
+    margin: 0 calc(-55px + 13vw);
+    }
+  }
+
+  @media only screen and (max-height: 600px) {
+    #countdown * {
+      animation: single-row-countdown .5s forwards;
+      position: absolute;
+    }
+  
+    #winner {
+      position: absolute;
+      top: 40px;
+    }
+  }
+}
+

@@ -1,7 +1,7 @@
 describe('Game rules',  () => {
   beforeEach(() => {
     cy.visit('/')
-    cy.get('#start-game').click()
+    cy.get('#start-button').click()
   })
 
   it('Rock wins over Scissors', () => {

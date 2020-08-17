@@ -94,7 +94,7 @@ class App extends Component {
     const { countdown, leftChoice, rightChoice, leftScore, rightScore } = this.state;
 
     const startButton = countdown === 7 && (
-      <button id="start-game" className="startButton" onClick={this.startGame}>
+      <button id="start-button" onClick={this.startGame}>
         Start!
       </button>
     );
@@ -105,9 +105,9 @@ class App extends Component {
     );
 
     return (
-      <div className="mainContainer">
-        <div className="headerContainer">
-          <h1 id="scoreLimit" className="secondaryText">First to {this.state.scoreLimit} wins!</h1>
+      <div className="main-container">
+        <div className="header-container">
+          <h1 id="scoreLimit" className="secondary-text">First to {this.state.scoreLimit} wins!</h1>
           {startButton}
           <Countdown countdown={countdown} />
           {winner}

@@ -1,7 +1,7 @@
 describe('Winner is determined automatically', () => {
   beforeEach(() => {
     cy.visit('/')
-    cy.get('#start-game').click()
+    cy.get('#start-button').click()
   })
 
   it('after a timer countdown', () => {
