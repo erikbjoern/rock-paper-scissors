@@ -1,14 +1,14 @@
 $primary-color: #f1d969;
 $primary-font-family: 'Bangers', cursive;
 
-@mixin flex-column($align) {
-  align-items: $align;
+@mixin flex-column($alignment) {
+  align-items: $alignment;
   display: flex;
   flex-direction: column;
 }
 
-@mixin centered-flex-row($justification) {
-  align-items: center;
+@mixin flex-row($alignment, $justification) {
+  align-items: $alignment;
   display: flex;
   justify-content: $justification;
 }
@@ -135,7 +135,7 @@ div {
 }
 
 .player-container {
-  @include centered-flex-row(space-between);
+  @include flex-row(flex-start, space-between);
   position: relative;
   top: calc(55vh - 120px);
   width: 67vw;
@@ -190,7 +190,7 @@ div {
 }
 
 .score {
-  @include centered-flex-row(space-between);
+  @include flex-row(center, space-between);
   bottom: 5vh;
   color: $primary-color;
   font-size: 500%;
@@ -209,7 +209,7 @@ div {
 }
 
 .hotkeys-container {
-  @include centered-flex-row(space-between);
+  @include flex-row(center, space-between);
   bottom: 0;
   position: absolute;
   width: 100%;
@@ -219,7 +219,7 @@ div {
 .right-hotkeys {
   margin: 50px 0;
   & div {
-    @include centered-flex-row(space-between);
+    @include flex-row(center, space-between);
     margin: 0 50px;
     width: 70px;
   }
@@ -231,7 +231,7 @@ div {
 }
 
 .key {
-  @include centered-flex-row(center);
+  @include flex-row(center, center);
   border-radius: 2px;
   border: 2px inset $primary-color;
   color: $primary-color;
