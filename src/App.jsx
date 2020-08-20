@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Countdown from "./components/Countdown";
 import HotkeysSheet from "./components/HotkeysSheet";
-import Players from './components/Players'
+import Players from "./components/Players";
 import { determineWinner } from "./helpers/determineWinner";
 import { hotkeyHandler } from "./helpers/hotkeyHandler";
 
@@ -25,7 +25,7 @@ class App extends Component {
   keydownHandler = (e) => {
     this.setState(hotkeyHandler(e.keyCode, this.state.countdown));
   };
-  
+
   startGame = () => {
     this.setState({
       countdown: 6,
@@ -37,19 +37,19 @@ class App extends Component {
       this.tick();
     }, 750);
   };
-  
+
   tick = () => {
     const countdown = this.state.countdown;
     this.setState({ countdown: countdown - 1 });
-    this.gameHandler(countdown)
+    this.gameHandler(countdown);
   };
-  
+
   gameHandler = (countdown) => {
     switch (countdown) {
-      case 0: 
-        this.handleScore()
+      case 0:
+        this.handleScore();
         break
-      case -2: 
+      case -2:
         this.determineFinalWinner();
         break
       case -3:
@@ -61,7 +61,7 @@ class App extends Component {
         });
         break
       default:
-        break
+        break;
     }
   };
 
@@ -70,12 +70,12 @@ class App extends Component {
     const winner = determineWinner(leftChoice, rightChoice);
 
     this.setState({
-      winner: winner === "Tie!" ? winner : winner + "player wins!",
+      winner: winner === "Tie!" ? winner : winner + " player wins!",
       leftScore: winner === "Left" ? leftScore + 1 : leftScore,
-      rightScore: winner === "Right" ? rightScore + 1 : rightScore
+      rightScore: winner === "Right" ? rightScore + 1 : rightScore,
     });
   };
-  
+
   determineFinalWinner = () => {
     const { rightScore, leftScore, scoreLimit } = this.state;
 
@@ -91,23 +91,35 @@ class App extends Component {
   };
 
   render() {
-    const { countdown, leftChoice, rightChoice, leftScore, rightScore } = this.state;
+    const {
+      countdown,
+      leftChoice,
+      rightChoice,
+      leftScore,
+      rightScore,
+    } = this.state;
 
     const startButton = countdown === 7 && (
-      <button id="start-button" onClick={this.startGame}>
+      <button
+        id="start-btn"
+        data-cy="start-btn"
+        onClick={this.startGame}
+      >
         Start!
       </button>
     );
 
     const winner = (countdown === 7 ||
       (countdown <= -1 && countdown >= -2)) && (
-      <h1 id="winner">{this.state.winner}</h1>
+      <h1 id="winner" data-cy="winner">{this.state.winner}</h1>
     );
 
     return (
       <div className="main-container">
         <div className="header-container">
-          <h1 id="scoreLimit" className="secondary-text">First to {this.state.scoreLimit} wins!</h1>
+          <h1 className="secondary-text" data-cy="score-limit">
+            First to {this.state.scoreLimit} wins!
+          </h1>
           {startButton}
           <Countdown countdown={countdown} />
           {winner}
@@ -118,14 +130,10 @@ class App extends Component {
           leftChoice={leftChoice}
         />
         <div className="score">
-          <div id="leftScore">
-            {leftScore}
-          </div>
+          <div id="l-score" data-cy="l-score">{leftScore}</div>
           -
-          <div id="rightScore">
-            {rightScore}
-          </div>
-      </div>
+          <div id="r-score" data-cy="r-score">{rightScore}</div>
+        </div>
         <HotkeysSheet />
       </div>
     );

@@ -36,7 +36,7 @@ $primary-font-family: 'Bangers', cursive;
   }
 }
 
-@keyframes bouncing-right {
+@keyframes r-bouncing {
   0%,
   50%,
   100% {
@@ -47,7 +47,7 @@ $primary-font-family: 'Bangers', cursive;
   }
 }
 
-@keyframes bouncing-left {
+@keyframes l-bouncing {
   0%,
   50%,
   100% {
@@ -58,13 +58,13 @@ $primary-font-family: 'Bangers', cursive;
   }
 }
 
-@keyframes slow-right {
+@keyframes r-slow {
   to {
     transform: translate(0px, 20px) rotate(-8deg);
   }
 }
 
-@keyframes slow-left {
+@keyframes l-slow {
   to {
     transform: translate(0px, 20px) rotate(8deg);
   }
@@ -141,8 +141,8 @@ div {
   width: 67vw;
 }
 
-.left-player,
-.right-player {
+.l-player,
+.r-player {
   @include flex-column(center);
   text-align: center;
   width: 200px;
@@ -173,20 +173,20 @@ div {
   letter-spacing: .05em;
 }
 
-.slow-right {
-  animation: slow-right .35s .5s forwards;
+.r-slow {
+  animation: r-slow .35s .5s forwards;
 }
 
-.slow-left {
-  animation: slow-left .35s .5s forwards;
+.l-slow {
+  animation: l-slow .35s .5s forwards;
 }
 
-.bouncing-right {
-  animation: bouncing-right .75s .5s infinite;
+.r-bouncing {
+  animation: r-bouncing .75s .5s infinite;
 }
 
-.bouncing-left {
-  animation: bouncing-left .75s .5s infinite;
+.l-bouncing {
+  animation: l-bouncing .75s .5s infinite;
 }
 
 .score {
@@ -198,7 +198,7 @@ div {
   width: 20vw;
 }
 
-#start-button {
+#start-btn {
   background-color: $primary-color;
   border-radius: 5px;
   border: 2px solid #cc9c49;
@@ -215,8 +215,8 @@ div {
   width: 100%;
 }
 
-.left-hotkeys,
-.right-hotkeys {
+.l-hotkeys,
+.r-hotkeys {
   margin: 50px 0;
   & div {
     @include flex-row(center, space-between);
@@ -252,8 +252,8 @@ div {
     letter-spacing: 0;
   }
 
-  .left-hotkeys,
-  .right-hotkeys {
+  .l-hotkeys,
+  .r-hotkeys {
     margin: calc(-55px + 13vw) 0;
     & div {
     margin: 0 calc(-55px + 13vw);

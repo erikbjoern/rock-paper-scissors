@@ -20,9 +20,9 @@ const Hand = ({ side, choice, countdown }) => {
     new Image().src = img;
   });
 
-  const rock = side === "right" ? rightrock : leftrock;
-  const paper = side === "right" ? rightpaper : leftpaper;
-  const scissors = side === "right" ? rightscissors : leftscissors;
+  const rock = side === "r" ? rightrock : leftrock;
+  const paper = side === "r" ? rightpaper : leftpaper;
+  const scissors = side === "r" ? rightscissors : leftscissors;
   const revealChoice = countdown <= 0 && countdown >= -2;
 
   let source;
@@ -30,35 +30,36 @@ const Hand = ({ side, choice, countdown }) => {
   switch (true) {
     case !revealChoice || (revealChoice && choice === ("rock" || "")):
       source = rock;
-      break
+      break;
     case revealChoice && choice === "paper":
       source = paper;
-      break
+      break;
     case revealChoice && choice === "scissors":
       source = scissors;
-      break
+      break;
     default:
       source = rock;
-      break
+      break;
   }
 
   const handAnimation = () => {
     if (!revealChoice && countdown <= 4) {
-      return `bouncing-${side}`
+      return `${side}-bouncing`;
     } else if (revealChoice && choice === "") {
-      return `slow-${side}`
+      return `${side}-slow`;
     } else {
-      return ""
+      return "";
     }
   };
 
   return (
     <img
       className={handAnimation(side)}
+      data-cy={`${side}-hand`}
       width="150px"
       height="150px"
       src={source}
-      alt={`${side} player's choice`}
+      alt={`${side === "r" ? "Right" : "Left"} player's choice`}
     />
   );
 };

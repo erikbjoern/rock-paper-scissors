@@ -45,7 +45,7 @@
   }
 }
 
-@-webkit-keyframes bouncing-right {
+@-webkit-keyframes r-bouncing {
   0%,
   50%,
   100% {
@@ -58,7 +58,7 @@
   }
 }
 
-@keyframes bouncing-right {
+@keyframes r-bouncing {
   0%,
   50%,
   100% {
@@ -71,7 +71,7 @@
   }
 }
 
-@-webkit-keyframes bouncing-left {
+@-webkit-keyframes l-bouncing {
   0%,
   50%,
   100% {
@@ -84,7 +84,7 @@
   }
 }
 
-@keyframes bouncing-left {
+@keyframes l-bouncing {
   0%,
   50%,
   100% {
@@ -97,28 +97,28 @@
   }
 }
 
-@-webkit-keyframes slow-right {
+@-webkit-keyframes r-slow {
   to {
     -webkit-transform: translate(0px, 20px) rotate(-8deg);
             transform: translate(0px, 20px) rotate(-8deg);
   }
 }
 
-@keyframes slow-right {
+@keyframes r-slow {
   to {
     -webkit-transform: translate(0px, 20px) rotate(-8deg);
             transform: translate(0px, 20px) rotate(-8deg);
   }
 }
 
-@-webkit-keyframes slow-left {
+@-webkit-keyframes l-slow {
   to {
     -webkit-transform: translate(0px, 20px) rotate(8deg);
             transform: translate(0px, 20px) rotate(8deg);
   }
 }
 
-@keyframes slow-left {
+@keyframes l-slow {
   to {
     -webkit-transform: translate(0px, 20px) rotate(8deg);
             transform: translate(0px, 20px) rotate(8deg);
@@ -246,8 +246,8 @@ div {
   width: 67vw;
 }
 
-.left-player,
-.right-player {
+.l-player,
+.r-player {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -299,24 +299,24 @@ div {
   letter-spacing: .05em;
 }
 
-.slow-right {
-  -webkit-animation: slow-right .35s .5s forwards;
-          animation: slow-right .35s .5s forwards;
+.r-slow {
+  -webkit-animation: r-slow .35s .5s forwards;
+          animation: r-slow .35s .5s forwards;
 }
 
-.slow-left {
-  -webkit-animation: slow-left .35s .5s forwards;
-          animation: slow-left .35s .5s forwards;
+.l-slow {
+  -webkit-animation: l-slow .35s .5s forwards;
+          animation: l-slow .35s .5s forwards;
 }
 
-.bouncing-right {
-  -webkit-animation: bouncing-right .75s .5s infinite;
-          animation: bouncing-right .75s .5s infinite;
+.r-bouncing {
+  -webkit-animation: r-bouncing .75s .5s infinite;
+          animation: r-bouncing .75s .5s infinite;
 }
 
-.bouncing-left {
-  -webkit-animation: bouncing-left .75s .5s infinite;
-          animation: bouncing-left .75s .5s infinite;
+.l-bouncing {
+  -webkit-animation: l-bouncing .75s .5s infinite;
+          animation: l-bouncing .75s .5s infinite;
 }
 
 .score {
@@ -336,7 +336,7 @@ div {
   width: 20vw;
 }
 
-#start-button {
+#start-btn {
   background-color: #f1d969;
   border-radius: 5px;
   border: 2px solid #cc9c49;
@@ -361,13 +361,13 @@ div {
   width: 100%;
 }
 
-.left-hotkeys,
-.right-hotkeys {
+.l-hotkeys,
+.r-hotkeys {
   margin: 50px 0;
 }
 
-.left-hotkeys div,
-.right-hotkeys div {
+.l-hotkeys div,
+.r-hotkeys div {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -414,12 +414,12 @@ div {
     font-size: 3.5vw;
     letter-spacing: 0;
   }
-  .left-hotkeys,
-  .right-hotkeys {
+  .l-hotkeys,
+  .r-hotkeys {
     margin: calc(-55px + 13vw) 0;
   }
-  .left-hotkeys div,
-  .right-hotkeys div {
+  .l-hotkeys div,
+  .r-hotkeys div {
     margin: 0 calc(-55px + 13vw);
   }
 }
