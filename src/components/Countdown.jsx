@@ -1,27 +1,19 @@
-import React from 'react'
-import { Header } from 'semantic-ui-react'
+import React from "react";
 
-const Countdown = ({countdown}) => {
+const Countdown = ({ countdown }) => {
+  const getReady = countdown <= 6 && countdown >= 5 && <p>Get ready!</p>;
+  const rock     = countdown <= 3 && countdown >= 1 && <p>rock</p>;
+  const paper    = countdown <= 2 && countdown >= 1 && <p>paper</p>;
+  const scissors = countdown <= 1 && countdown >= 1 && <p>scissors</p>;
 
-  let countdownInText
-
-  switch(countdown) {
-    case 3:
-      countdownInText = 'rock'
-      break
-    case 2:
-      countdownInText = 'paper'
-      break
-    case 1:
-      countdownInText = 'scissors'
-      break
-    default:
-      countdownInText = ''
-  }
-  
   return (
-      <Header className="text" as="h1" id="countdown">{countdownInText}</Header>
-  )
-}
+    <div id="countdown" data-cy="countdown">
+      {getReady}
+      {rock}
+      {paper}
+      {scissors}
+    </div>
+  );
+};
 
-export default Countdown
+export default Countdown;

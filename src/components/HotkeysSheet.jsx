@@ -1,31 +1,46 @@
-import React from 'react'
-import {Grid, Header} from 'semantic-ui-react'
+import React from "react";
+import rightrock from "../images/rightrock.png";
+import rightpaper from "../images/rightpaper.png";
+import rightscissors from "../images/rightscissors.png";
+import leftrock from "../images/leftrock.png";
+import leftpaper from "../images/leftpaper.png";
+import leftscissors from "../images/leftscissors.png";
 
 const HotkeysSheet = () => {
   return (
-    <Grid className="hotkeysSheet" centered>
-      <Grid.Row><Header as="h2" style={{color: "#cdffcd"}}>Hotkeys</Header></Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={4}><Header as="h4" style={{color: "#cdffcd"}}>Left player</Header></Grid.Column>
-        <Grid.Column  width={4}><Header as="h4" style={{color: "#cdffcd"}}>Right player</Header></Grid.Column>
-      </Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={2}>1</Grid.Column>
-        <Grid.Column  width={2}>Rock</Grid.Column>
-        <Grid.Column  width={2}>ArrowLeft</Grid.Column>
-      </Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={2}>2</Grid.Column>
-        <Grid.Column  width={2}>Paper</Grid.Column>
-        <Grid.Column  width={2}>ArrowUp</Grid.Column>
-      </Grid.Row>
-      <Grid.Row className="gridRows">
-        <Grid.Column  width={2}>3</Grid.Column>
-        <Grid.Column  width={2}>Scissors</Grid.Column>
-        <Grid.Column  width={2}>ArrowRight</Grid.Column>
-      </Grid.Row>
-    </Grid>
-  )
-}
+    <div className="hotkeys-container">
+      <div className="l-hotkeys" data-cy="l-hotkeys">
+        <h3 className="secondary-text">Hotkeys</h3>
+        <div>
+          <img className="icon" src={leftrock} alt="rock icon" />
+          <p className="key">1</p>
+        </div>
+        <div>
+          <img className="icon" src={leftpaper} alt="paper icon" />
+          <p className="key">2</p>
+        </div>
+        <div>
+          <img className="icon" src={leftscissors} alt="scissors icon" />
+          <p className="key">3</p>
+        </div>
+      </div>
+      <div className="r-hotkeys" data-cy="r-hotkeys">
+        <h3 className="secondary-text">Hotkeys</h3>
+        <div>
+          <p className="key">🡐</p>
+          <img className="icon" src={rightrock} alt="rock icon" />
+        </div>
+        <div>
+          <p className="key">🡑</p>
+          <img className="icon" src={rightpaper} alt="paper icon" />
+        </div>
+        <div>
+          <p className="key">🡒</p>
+          <img className="icon" src={rightscissors} alt="scissors icon" />
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default HotkeysSheet
+export default HotkeysSheet;
