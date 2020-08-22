@@ -1,15 +1,18 @@
+/* VARIABLES */
+/* MIXINS */
+/* FONT-FACE */
 @font-face {
   font-family: 'Bangers';
   src: local("Bangers"), url(./fonts/Bangers-Regular.ttf) format("truetype");
 }
 
+/* ANIMATIONS */
 @-webkit-keyframes countdown {
   from {
     -webkit-transform: scale(0);
             transform: scale(0);
   }
 }
-
 @keyframes countdown {
   from {
     -webkit-transform: scale(0);
@@ -153,6 +156,7 @@
   }
 }
 
+/* HTML TAGS */
 body {
   margin: 0;
 }
@@ -162,15 +166,10 @@ div {
   text-align: center;
 }
 
+/* WHOLE PAGE */
 .secondary-text {
   color: #cdffcd;
   font-family: monospace;
-}
-
-.background {
-  background-color: #87a658;
-  height: 100vh;
-  width: 100vw;
 }
 
 .main-container {
@@ -184,10 +183,12 @@ div {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 100%;
-  width: 100%;
+  background-color: #87a658;
+  height: 100vh;
+  width: 100vw;
 }
 
+/* HEADER */
 .header-container {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -199,38 +200,34 @@ div {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 200px;
   padding-top: 2vh;
   position: absolute;
+  width: 100vw;
 }
 
-#countdown {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-#countdown *,
-#winner {
+.header-container p {
   -webkit-animation: countdown .3s;
           animation: countdown .3s;
   color: #12240a;
   font-size: 7vh;
   margin: 0;
-  padding: 0;
+}
+
+#start-btn {
+  background-color: #f1d969;
+  border-radius: 5px;
+  border: 2px solid #cc9c49;
+  cursor: pointer;
+  font: 200% "Bangers", cursive;
+  padding: 15px;
+  z-index: 1;
 }
 
 #winner {
-  margin-top: 30px;
+  margin-top: calc(25vh - 100px);
 }
 
+/* PLAYERS */
 .player-container {
   -webkit-box-align: start;
       -ms-flex-align: start;
@@ -319,6 +316,7 @@ div {
           animation: l-bouncing .75s .5s infinite;
 }
 
+/* SCORE */
 .score {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -332,20 +330,12 @@ div {
   bottom: 5vh;
   color: #f1d969;
   font-size: 500%;
+  margin-left: -10px;
   position: absolute;
   width: 20vw;
 }
 
-#start-btn {
-  background-color: #f1d969;
-  border-radius: 5px;
-  border: 2px solid #cc9c49;
-  cursor: pointer;
-  font: 200% "Bangers", cursive;
-  padding: 15px;
-  z-index: 1;
-}
-
+/* HOTKEYS */
 .hotkeys-container {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -404,6 +394,14 @@ div {
   width: 25px;
 }
 
+/* SMALL VIEWPORT */
+@media only screen and (max-height: 600px) {
+  #start-btn {
+    position: fixed;
+    bottom: 120px;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   .score {
     font-size: 10vh;
@@ -425,14 +423,26 @@ div {
 }
 
 @media only screen and (max-width: 800px) and (max-height: 600px) {
-  #countdown * {
+  #countdown {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #countdown p {
     -webkit-animation: single-row-countdown .5s forwards;
             animation: single-row-countdown .5s forwards;
     position: absolute;
   }
-  #winner {
-    position: absolute;
-    top: 40px;
+  #start-btn {
+    position: fixed;
+    bottom: 80px;
   }
 }
 /*# sourceMappingURL=App.css.map */

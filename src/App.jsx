@@ -111,7 +111,7 @@ class App extends Component {
 
     const winner = (countdown === 7 ||
       (countdown <= -1 && countdown >= -2)) && (
-      <h1 id="winner" data-cy="winner">{this.state.winner}</h1>
+      <p id="winner" data-cy="winner">{this.state.winner}</p>
     );
 
     return (

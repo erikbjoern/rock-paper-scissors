@@ -1,5 +1,9 @@
+/* VARIABLES */
+
 $primary-color: #f1d969;
 $primary-font-family: 'Bangers', cursive;
+
+/* MIXINS */
 
 @mixin flex-column($alignment) {
   align-items: $alignment;
@@ -13,10 +17,14 @@ $primary-font-family: 'Bangers', cursive;
   justify-content: $justification;
 }
 
+/* FONT-FACE */
+
 @font-face {
   font-family: 'Bangers';
   src: local('Bangers'), url(./fonts/Bangers-Regular.ttf) format('truetype');
 }
+
+/* ANIMATIONS */
 
 @keyframes countdown {
   from {
@@ -84,6 +92,8 @@ $primary-font-family: 'Bangers', cursive;
   }
 }
 
+/* HTML TAGS */
+
 body {
   margin: 0;
 }
@@ -93,46 +103,50 @@ div {
   text-align: center;
 }
 
+/* WHOLE PAGE */
+
 .secondary-text {
   color: #cdffcd;
   font-family: monospace;
 }
 
-.background {
+.main-container {
+  @include flex-column(center);
   background-color: #87a658;
   height: 100vh;
   width: 100vw;
 }
 
-.main-container {
-  @include flex-column(center);
-  height: 100%;
-  width: 100%;
-}
+/* HEADER */
 
 .header-container {
   @include flex-column(center);
-  height: 200px;
   padding-top: 2vh;
   position: absolute;
+  width: 100vw;
+  & p {
+    animation: countdown .3s;
+    color: #12240a;
+    font-size: 7vh;
+    margin: 0;
+  }
 }
 
-#countdown {
-  @include flex-column(center);
+#start-btn {
+  background-color: $primary-color;
+  border-radius: 5px;
+  border: 2px solid #cc9c49;
+  cursor: pointer;
+  font: 200% $primary-font-family;
+  padding: 15px;
+  z-index: 1;
 }
 
-#countdown *,
 #winner {
-  animation: countdown .3s;
-  color: #12240a;
-  font-size: 7vh;
-  margin: 0;
-  padding: 0;
+  margin-top: calc(25vh - 100px);
 }
 
-#winner {
-  margin-top: 30px;
-}
+/* PLAYERS */
 
 .player-container {
   @include flex-row(flex-start, space-between);
@@ -189,24 +203,19 @@ div {
   animation: l-bouncing .75s .5s infinite;
 }
 
+/* SCORE */
+
 .score {
   @include flex-row(center, space-between);
   bottom: 5vh;
   color: $primary-color;
   font-size: 500%;
+  margin-left: -10px;
   position: absolute;
   width: 20vw;
 }
 
-#start-btn {
-  background-color: $primary-color;
-  border-radius: 5px;
-  border: 2px solid #cc9c49;
-  cursor: pointer;
-  font: 200% $primary-font-family;
-  padding: 15px;
-  z-index: 1;
-}
+/* HOTKEYS */
 
 .hotkeys-container {
   @include flex-row(center, space-between);
@@ -240,6 +249,15 @@ div {
   width: 25px;
 }
 
+/* SMALL VIEWPORT */
+
+@media only screen and (max-height: 600px) {
+  #start-btn {
+    position: fixed;
+    bottom: 120px;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   .score {
     font-size: 10vh;
@@ -261,15 +279,19 @@ div {
   }
 
   @media only screen and (max-height: 600px) {
-    #countdown * {
-      animation: single-row-countdown .5s forwards;
-      position: absolute;
+    #countdown {
+      @include flex-column(center);
+      & p {
+        animation: single-row-countdown .5s forwards;
+        position: absolute;
+      }
     }
-  
-    #winner {
-      position: absolute;
-      top: 40px;
+    
+    #start-btn {
+      position: fixed;
+      bottom: 80px;
     }
   }
 }
+
 
