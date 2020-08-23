@@ -1,169 +1,143 @@
-import React, { Component } from 'react'
-import { Container, Image, Header, Button, Grid } from 'semantic-ui-react'
-
-import Countdown from './components/Countdown'
-import HotkeysSheet from './components/HotkeysSheet'
-import { determineWinner } from './helpers/determineWinner'
-import { hotkeyHandler } from './helpers/hotkeyHandler'
-import rightRock from './images/right-rock.png'
-import rightPaper from './images/right-paper.png'
-import rightScissors from './images/right-scissors.png'
-import leftRock from './images/left-rock.png'
-import leftPaper from './images/left-paper.png'
-import leftScissors from './images/left-scissors.png'
-
+import React, { Component } from "react";
+import Countdown from "./components/Countdown";
+import HotkeysSheet from "./components/HotkeysSheet";
+import Players from "./components/Players";
+import { determineWinner } from "./helpers/determineWinner";
+import { hotkeyHandler } from "./helpers/hotkeyHandler";
 
 class App extends Component {
   state = {
     leftChoice: "",
     rightChoice: "",
-    weHaveAWinner: false,
     winner: "",
-    countdown: 4,
-    leftPlayerScore: 0,
-    rightPlayerScore: 0,
+    countdown: 7,
+    leftScore: 0,
+    rightScore: 0,
     scoreLimit: 3,
+  };
+
+  componentDidMount() {
+    document.addEventListener("keydown", (event) => {
+      this.keydownHandler(event);
+    });
   }
 
-  tick = () => {
-    const winner = determineWinner(this.state.leftChoice, this.state.rightChoice)
-    const countdown = this.state.countdown
-
-    if (countdown >= 2 && countdown < 4) {
-      this.setState(({countdown}) => ({
-        countdown: countdown - 1
-      }))
-    } else if (countdown < 2 && countdown >= 0) {
-      this.setState(({countdown}) => ({ 
-        weHaveAWinner: true,
-        winner: winner,
-        countdown: countdown - 1
-      }))
-    } else if (countdown < 0) {
-      this.handleScore()
-      this.setState({ 
-        countdown: 3,
-        weHaveAWinner: false,
-        leftChoice: "",
-        rightChoice: ""
-      })
-      this.determineFinalWinner()
-      }
-  }
-
-  keydownHandler = e => {
-    this.setState(hotkeyHandler(e.keyCode, this.state.countdown))
-  }
-
-  componentDidMount(){
-    document.addEventListener('keydown', (event) => { this.keydownHandler(event) })
-  }
+  keydownHandler = (e) => {
+    this.setState(hotkeyHandler(e.keyCode, this.state.countdown));
+  };
 
   startGame = () => {
     this.setState({
-      countdown: 3,
-      weHaveAWinner: false,
+      countdown: 6,
       winner: "",
-      leftPlayerScore: 0,
-      rightPlayerScore: 0
-    })
+      leftScore: 0,
+      rightScore: 0,
+    });
     this.timer = setInterval(() => {
-      this.tick()
-    }, 1000)
-  }
+      this.tick();
+    }, 750);
+  };
+
+  tick = () => {
+    const countdown = this.state.countdown;
+    this.setState({ countdown: countdown - 1 });
+    this.gameHandler(countdown);
+  };
+
+  gameHandler = (countdown) => {
+    switch (countdown) {
+      case 0:
+        this.handleScore();
+        break
+      case -2:
+        this.determineFinalWinner();
+        break
+      case -3:
+        this.setState({
+          winner: "",
+          countdown: 3,
+          leftChoice: "",
+          rightChoice: "",
+        });
+        break
+      default:
+        break;
+    }
+  };
 
   handleScore = () => {
-    const { winner, leftPlayerScore, rightPlayerScore } = this.state
+    const { leftChoice, rightChoice, leftScore, rightScore } = this.state;
+    const winner = determineWinner(leftChoice, rightChoice);
 
-    if (winner === 'Left player wins') {
-      this.setState({ leftPlayerScore: leftPlayerScore + 1 })
-    }
-    if (winner === 'Right player wins') {
-      this.setState({ rightPlayerScore: rightPlayerScore + 1 })
-    }
-  }
-  
+    this.setState({
+      winner: winner === "Tie!" ? winner : winner + " player wins!",
+      leftScore: winner === "Left" ? leftScore + 1 : leftScore,
+      rightScore: winner === "Right" ? rightScore + 1 : rightScore,
+    });
+  };
+
   determineFinalWinner = () => {
-    const { rightPlayerScore, leftPlayerScore, scoreLimit } = this.state
-    
-    if (rightPlayerScore === scoreLimit || leftPlayerScore === scoreLimit) {
-      this.setState({ 
-        countdown: 4,
-        weHaveAWinner: true,
-        winner: `${rightPlayerScore > leftPlayerScore ? "Right" : "Left"} player wins it all`
-      })
-      clearInterval(this.timer)
+    const { rightScore, leftScore, scoreLimit } = this.state;
+
+    if (rightScore === scoreLimit || leftScore === scoreLimit) {
+      this.setState({
+        countdown: 7,
+        winner: `${
+          rightScore > leftScore ? "Right" : "Left"
+        } player wins it all!`,
+      });
+      clearInterval(this.timer);
     }
-  }
+  };
 
   render() {
-    let renderWinner, startButton, leftPlayer, rightPlayer, leftPlayerChoice, rightPlayerChoice
+    const {
+      countdown,
+      leftChoice,
+      rightChoice,
+      leftScore,
+      rightScore,
+    } = this.state;
 
-    if (this.state.leftChoice === 'rock') {
-      leftPlayerChoice = <Image id="leftPlayerChoice" size='small' src={leftRock}/>
-    } else if (this.state.leftChoice === 'paper') {
-      leftPlayerChoice = <Image id="leftPlayerChoice" size='small' src={leftPaper}/>
-    } else if (this.state.leftChoice === 'scissors') {
-      leftPlayerChoice = <Image id="leftPlayerChoice" size='small' src={leftScissors}/>
-    }
-    
-    if (this.state.rightChoice === 'rock') {
-      rightPlayerChoice = <Image id="rightPlayerChoice" size='small' src={rightRock}/>
-    } else if (this.state.rightChoice === 'paper') {
-      rightPlayerChoice = <Image id="rightPlayerChoice" size='small' src={rightPaper}/>
-    } else if (this.state.rightChoice === 'scissors') {
-      rightPlayerChoice = <Image id="rightPlayerChoice" size='small' src={rightScissors}/>
-    }
+    const startButton = countdown === 7 && (
+      <button
+        id="start-btn"
+        data-cy="start-btn"
+        onClick={this.startGame}
+      >
+        Start!
+      </button>
+    );
 
-    if (this.state.weHaveAWinner === true) {
-      renderWinner = <Header className="winnerText" as="h1" id="winner">{this.state.winner}!</Header>
-      if (leftPlayerChoice) {
-        leftPlayer = leftPlayerChoice
-      } else {
-        leftPlayer = <Image id="leftPlayerChoice" size='small' src={leftRock}/>
-      }
-      if (rightPlayerChoice) {
-        rightPlayer = rightPlayerChoice
-      } else {
-        rightPlayer = <Image id="rightPlayerChoice" size='small' src={rightRock}/>
-      }
-    } else {
-      leftPlayer   = <Image id="leftPlayer" size='small' src={leftRock}/>
-      rightPlayer  = <Image id="rightPlayer" size='small' src={rightRock}/>
-    }
-
-    if (this.state.countdown === 4) {
-      startButton = <Button id="start-game" className='Button' onClick={this.startGame}>Start!</Button>
-    }
+    const winner = (countdown === 7 ||
+      (countdown <= -1 && countdown >= -2)) && (
+      <p id="winner" data-cy="winner">{this.state.winner}</p>
+    );
 
     return (
-      <Container align="center">
-        <Header as="h3" id="score-limit" style={{paddingTop: "30px", color: "#cdffcd"}}>
-          First to {this.state.scoreLimit} wins!
-        </Header>
-        <Container style={{height: "90px", paddingTop: '2%'}}>
+      <div className="main-container">
+        <div className="header-container">
+          <h1 className="secondary-text" data-cy="score-limit">
+            First to {this.state.scoreLimit} wins!
+          </h1>
           {startButton}
-          <Countdown countdown={this.state.countdown}/>
-        </Container>
-          {renderWinner}
-        <Container className="playerContainer" style={{paddingTop: "15%"}}>
-          {leftPlayer}
-          {rightPlayer}
-        </Container>
-        <Grid fluid>
-          <Grid.Row className="playerContainer">
-          <Header className="score" as="h1" id="leftPlayerScore">
-            {this.state.leftPlayerScore}
-          </Header> 
-          <Header className="score" as="h1" id="rightPlayerScore">
-            {this.state.rightPlayerScore}
-          </Header> 
-          </Grid.Row>
-        </Grid>
-        <HotkeysSheet/>
-      </Container>
-    )
+          <Countdown countdown={countdown} />
+          {winner}
+        </div>
+        <Players
+          countdown={countdown}
+          rightChoice={rightChoice}
+          leftChoice={leftChoice}
+        />
+        <div className="score">
+          <div id="l-score" data-cy="l-score">{leftScore}</div>
+          -
+          <div id="r-score" data-cy="r-score">{rightScore}</div>
+        </div>
+        <HotkeysSheet />
+      </div>
+    );
   }
 }
 
-export default App
+export default App;

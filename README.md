@@ -4,24 +4,24 @@
 
 A web app where two local players can play 'Rock, paper, scissors' against eachother, each using a set of keys on the same keyboard. Their choices have to be made before the countdown is over, and are then displayed, represented by two hands. There's a set score limit of 10 points. Whoever reaches that score is determined the final winner.
 
-
 * Project scaffolded with create-react-app
 * Cypress installed for feature tests
-* Game rules (game logic) are implemented
+* Game rules (game logic) are implemented, including that a player looses for not making a choice
 * Player input through hotkeys is implemented
 * Timer is implemented
 * Manual game start is implemented
 * Accumulation of points is implemented
 * Game stopping on reached score limit is implemented
-* Game restart after a set is implemented 
+* Game restart after a set is implemented
+* Sass used for 
 * Following visuals are implemented:
-  * Players can see:
-    * a visual representation of the timer, ticking
-    * a button to start the game and timer
-    * a representation of both players
+    * a representation of the timer, ticking
+    * a button to start the game
+    * animated representations of both players
     * a representation of both players' choices
-    * their score
-    * their score increase when they win
+    * both a static and an animated indication that they have to make a choice
+    * an indication that they were too slow in making a choice (or didn't make any)
+    * each player's score
     * the score limit
     * the final winner when score limit is reached
     * a sheet of the keybindings used for the hotkeys
@@ -30,20 +30,14 @@ A web app where two local players can play 'Rock, paper, scissors' against eacho
 ## Packages used:
 * Cypress for feature testing
 * Start-server-and-test for combined server and test start script
-* Semantic-ui-css and semantic-ui-react for styling
 
 ## Plan for improvements next in line:
-* Refactor code, mainly extract helpers and components out of App.jsx
-* It shouldn't say 'Tie' if no players makes any choice
-* Player not making a choice should loose if the other player makes a choice
-* Player loosing because of not choosing should have a fitting visual representation
-
-## For possible future development
 * Display amount of sets won for each player
-* Animated timer and player representations
-* Possibility to play against CPU with random choices
 * Possibility to set custom score limit, timer and hotkeys
 * Possibility to play against other player online
+
+## For possible future development
+* Possibility to play against CPU with random choices
 
 ## User Stories
 ### 1. The Game rules
@@ -78,6 +72,9 @@ I want to start the timer manually
 ```
 In order to know how long I have to make my pick
 I want there to be a visual representation of the timer
+
+In order to understand that not making a choice makes me lose
+I want there to be a fitting visual indication of that
 ```
 #### 4.3 Score
 ```

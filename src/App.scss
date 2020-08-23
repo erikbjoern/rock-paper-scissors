@@ -1,0 +1,297 @@
+/* VARIABLES */
+
+$primary-color: #f1d969;
+$primary-font-family: 'Bangers', cursive;
+
+/* MIXINS */
+
+@mixin flex-column($alignment) {
+  align-items: $alignment;
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row($alignment, $justification) {
+  align-items: $alignment;
+  display: flex;
+  justify-content: $justification;
+}
+
+/* FONT-FACE */
+
+@font-face {
+  font-family: 'Bangers';
+  src: local('Bangers'), url(./fonts/Bangers-Regular.ttf) format('truetype');
+}
+
+/* ANIMATIONS */
+
+@keyframes countdown {
+  from {
+    transform: scale(0);
+  }
+}
+
+@keyframes single-row-countdown {
+  from {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1);
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+
+@keyframes r-bouncing {
+  0%,
+  50%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(20px, -70px) rotate(9deg);
+  }
+}
+
+@keyframes l-bouncing {
+  0%,
+  50%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-20px, -70px) rotate(-9deg);
+  }
+}
+
+@keyframes r-slow {
+  to {
+    transform: translate(0px, 20px) rotate(-8deg);
+  }
+}
+
+@keyframes l-slow {
+  to {
+    transform: translate(0px, 20px) rotate(8deg);
+  }
+}
+
+@keyframes fuse {
+  0% {
+    background-color: $primary-color;
+    width: 100%;
+  }
+  30% {
+    background-color: $primary-color;
+  }
+  100% {
+    background-color: red;
+    width: 0;
+  }
+}
+
+/* HTML TAGS */
+
+body {
+  margin: 0;
+}
+
+div {
+  font-family: $primary-font-family;
+  text-align: center;
+}
+
+/* WHOLE PAGE */
+
+.secondary-text {
+  color: #cdffcd;
+  font-family: monospace;
+}
+
+.main-container {
+  @include flex-column(center);
+  background-color: #87a658;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* HEADER */
+
+.header-container {
+  @include flex-column(center);
+  padding-top: 2vh;
+  position: absolute;
+  width: 100vw;
+  & p {
+    animation: countdown .3s;
+    color: #12240a;
+    font-size: 7vh;
+    margin: 0;
+  }
+}
+
+#start-btn {
+  background-color: $primary-color;
+  border-radius: 5px;
+  border: 2px solid #cc9c49;
+  cursor: pointer;
+  font: 200% $primary-font-family;
+  padding: 15px;
+  z-index: 1;
+}
+
+#winner {
+  margin-top: calc(25vh - 100px);
+}
+
+/* PLAYERS */
+
+.player-container {
+  @include flex-row(flex-start, space-between);
+  position: relative;
+  top: calc(55vh - 120px);
+  width: 67vw;
+}
+
+.l-player,
+.r-player {
+  @include flex-column(center);
+  text-align: center;
+  width: 200px;
+}
+
+.make-a-choice-container {
+  @include flex-column(flex-start);
+  height: 100px;
+  margin-top: 15px;
+  width: fit-content;
+}
+
+.make-a-choice {
+  color: $primary-color;
+  font-size: 150%;
+  letter-spacing: .1em;
+}
+
+.fuse {
+  animation: fuse 2.25s ease-out;
+  height: 5px;
+  margin-top: -1vh;
+}
+
+.slow {
+  color: crimson;
+  font-size: 150%;
+  letter-spacing: .05em;
+}
+
+.r-slow {
+  animation: r-slow .35s .5s forwards;
+}
+
+.l-slow {
+  animation: l-slow .35s .5s forwards;
+}
+
+.r-bouncing {
+  animation: r-bouncing .75s .5s infinite;
+}
+
+.l-bouncing {
+  animation: l-bouncing .75s .5s infinite;
+}
+
+/* SCORE */
+
+.score {
+  @include flex-row(center, space-between);
+  bottom: 5vh;
+  color: $primary-color;
+  font-size: 500%;
+  margin-left: -10px;
+  position: absolute;
+  width: 20vw;
+}
+
+/* HOTKEYS */
+
+.hotkeys-container {
+  @include flex-row(center, space-between);
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.l-hotkeys,
+.r-hotkeys {
+  margin: 50px 0;
+  & div {
+    @include flex-row(center, space-between);
+    margin: 0 50px;
+    width: 70px;
+  }
+}
+
+.icon {
+  height: 25px;
+  width: 25px;
+}
+
+.key {
+  @include flex-row(center, center);
+  border-radius: 2px;
+  border: 2px inset $primary-color;
+  color: $primary-color;
+  font-family: sans-serif;
+  height: 25px;
+  width: 25px;
+}
+
+/* SMALL VIEWPORT */
+
+@media only screen and (max-height: 600px) {
+  #start-btn {
+    position: fixed;
+    bottom: 120px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .score {
+    font-size: 10vh;
+    width: calc(67vw - 150px);
+  }
+
+  .make-a-choice,
+  .slow {
+    font-size: 3.5vw;
+    letter-spacing: 0;
+  }
+
+  .l-hotkeys,
+  .r-hotkeys {
+    margin: calc(-55px + 13vw) 0;
+    & div {
+    margin: 0 calc(-55px + 13vw);
+    }
+  }
+
+  @media only screen and (max-height: 600px) {
+    #countdown {
+      @include flex-column(center);
+      & p {
+        animation: single-row-countdown .5s forwards;
+        position: absolute;
+      }
+    }
+    
+    #start-btn {
+      position: fixed;
+      bottom: 80px;
+    }
+  }
+}
+
+
