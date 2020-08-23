@@ -2,7 +2,7 @@
 
 [Deployed App on Netlify](https://erikbjoern-rock-paper-scissors.netlify.app/)
 
-A web app where two local players can play 'Rock, paper, scissors' against eachother, each using a set of keys on the same keyboard. Their choices have to be made before the countdown is over, and are then displayed, represented by two hands. There's a set score limit of 10 points. Whoever reaches that score is determined the final winner.
+A web app where two local players can play 'Rock, paper, scissors' against eachother, each using a set of keys on the same keyboard. Their choices have to be made before the countdown is over, and are then displayed, represented by two hands. There's a set score limit of 3 points. Whoever reaches that score is determined the final winner.
 
 * Project scaffolded with create-react-app
 * Cypress installed for feature tests
