@@ -13,7 +13,7 @@ A web app where two local players can play 'Rock, paper, scissors' against eacho
 * Accumulation of points is implemented
 * Game stopping on reached score limit is implemented
 * Game restart after a set is implemented
-* Sass used for 
+* Sass used for extended CSS functionality
 * Following visuals are implemented:
     * a representation of the timer, ticking
     * a button to start the game
