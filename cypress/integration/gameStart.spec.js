@@ -1,10 +1,10 @@
-describe('Players start the game by clicking the "Start!" button', () => {
+describe.only('Players start the game by clicking the "Start!" button', () => {
   beforeEach(() => {
     cy.visit("/");
   });
 
   it("which then disappears and starts the countdown", () => {
-    cy.get("[data-cy=start-btn]").click();
+    cy.get("[data-cy=start-btn]").contains("Start!").click();
     cy.get("[data-cy=start-btn]").should("not.exist");
     cy.get("[data-cy=countdown]").should("contain", "Get ready!");
   });
@@ -15,7 +15,7 @@ describe('Players start the game by clicking the "Start!" button', () => {
     cy.get("[data-cy=start-btn]").should("not.exist");
     cy.gameRoundWhereWinnerIs("left");
     cy.gameRoundWhereWinnerIs("left");
-    cy.get("[data-cy=start-btn]").click();
+    cy.get("[data-cy=start-btn]").contains("Play again!").click();
     cy.get("[data-cy=start-btn]").should("not.exist");
     cy.get("[data-cy=countdown]").should("contain", "Get ready!");
   });
