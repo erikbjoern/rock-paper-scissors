@@ -209,7 +209,7 @@ div {
   -webkit-animation: countdown .3s;
           animation: countdown .3s;
   color: #12240a;
-  font-size: 7vh;
+  font-size: 300%;
   margin: 0;
 }
 
@@ -324,15 +324,54 @@ div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: 2.5vh;
+}
+
+.round-score {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  bottom: 5vh;
+  bottom: 8vh;
   color: #f1d969;
   font-size: 500%;
   margin-left: -10px;
   position: absolute;
   width: 20vw;
+}
+
+.set-score {
+  bottom: 3vh;
+  color: #f1d969;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: calc(40vw - 100px) 20vw calc(40vw - 100px);
+      grid-template-columns: calc(40vw - 100px) 20vw calc(40vw - 100px);
+  margin-left: -10px;
+  position: absolute;
+}
+
+.set-score * {
+  font-size: 2.5vw;
+}
+
+.set-score #l-set-score {
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+
+.set-score #r-set-score {
+  -ms-grid-column: 3;
+  grid-column: 3;
 }
 
 /* HOTKEYS */
@@ -398,13 +437,12 @@ div {
 @media only screen and (max-height: 600px) {
   #start-btn {
     position: fixed;
-    bottom: 120px;
+    bottom: 26vh;
   }
 }
 
 @media only screen and (max-width: 800px) {
   .score {
-    font-size: 10vh;
     width: calc(67vw - 150px);
   }
   .make-a-choice,
@@ -439,10 +477,6 @@ div {
     -webkit-animation: single-row-countdown .5s forwards;
             animation: single-row-countdown .5s forwards;
     position: absolute;
-  }
-  #start-btn {
-    position: fixed;
-    bottom: 80px;
   }
 }
 /*# sourceMappingURL=App.css.map */

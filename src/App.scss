@@ -127,7 +127,7 @@ div {
   & p {
     animation: countdown .3s;
     color: #12240a;
-    font-size: 7vh;
+    font-size: 300%;
     margin: 0;
   }
 }
@@ -206,13 +206,36 @@ div {
 /* SCORE */
 
 .score {
+  @include flex-column(center);
+  font-size: 2.5vh;
+}
+
+.round-score {
   @include flex-row(center, space-between);
-  bottom: 5vh;
+  bottom: 8vh;
   color: $primary-color;
   font-size: 500%;
   margin-left: -10px;
   position: absolute;
   width: 20vw;
+}
+
+.set-score {
+  bottom: 3vh;
+  color: $primary-color;
+  display: grid;
+  grid-template-columns: calc(40vw - 100px) 20vw calc(40vw - 100px);
+  margin-left: -10px;
+  position: absolute;
+  & * {
+    font-size: 2.5vw;
+  }
+  & #l-set-score {
+    grid-column: 1;
+  }
+  & #r-set-score {
+    grid-column: 3;
+  }
 }
 
 /* HOTKEYS */
@@ -254,13 +277,12 @@ div {
 @media only screen and (max-height: 600px) {
   #start-btn {
     position: fixed;
-    bottom: 120px;
+    bottom: 26vh;
   }
 }
 
 @media only screen and (max-width: 800px) {
   .score {
-    font-size: 10vh;
     width: calc(67vw - 150px);
   }
 
@@ -285,11 +307,6 @@ div {
         animation: single-row-countdown .5s forwards;
         position: absolute;
       }
-    }
-    
-    #start-btn {
-      position: fixed;
-      bottom: 80px;
     }
   }
 }
