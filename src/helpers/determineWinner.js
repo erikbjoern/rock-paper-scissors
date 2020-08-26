@@ -1,17 +1,17 @@
-const compare = (LeftChoice, rightChoice) => {
-  if (rightChoice === "" && LeftChoice !== "") {
+const compare = (lChoice, rChoice) => {
+  if (rChoice === "" && lChoice !== "") {
     return 'Left'
   }
 
-  switch(LeftChoice) {
-    case rightChoice:
+  switch(lChoice) {
+    case rChoice:
       return 'Tie!'
     case "rock":
-      return rightChoice === "scissors" ? 'Left' : 'Right'
+      return rChoice === "scissors" ? 'Left' : 'Right'
     case "paper":
-      return rightChoice === "rock" ? 'Left' : 'Right'
+      return rChoice === "rock" ? 'Left' : 'Right'
     case "scissors":
-      return rightChoice === "paper" ? 'Left' : 'Right'
+      return rChoice === "paper" ? 'Left' : 'Right'
     case "":
       return 'Right'
     default: 
@@ -19,6 +19,6 @@ const compare = (LeftChoice, rightChoice) => {
   }
 }
 
-export const determineWinner = (LeftChoice, rightChoice) => (
-  compare(LeftChoice, rightChoice)
+export const determineWinner = (lChoice, rChoice) => (
+  compare(lChoice, rChoice)
 )

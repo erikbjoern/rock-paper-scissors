@@ -2,17 +2,20 @@ import React, { Component } from "react";
 import Countdown from "./components/Countdown";
 import HotkeysSheet from "./components/HotkeysSheet";
 import Players from "./components/Players";
+import Score from "./components/Score";
 import { determineWinner } from "./helpers/determineWinner";
 import { hotkeyHandler } from "./helpers/hotkeyHandler";
 
 class App extends Component {
   state = {
-    leftChoice: "",
-    rightChoice: "",
+    lChoice: "",
+    rChoice: "",
     winner: "",
-    countdown: 7,
-    leftScore: 0,
-    rightScore: 0,
+    countdown: 8,
+    lScore: 0,
+    rScore: 0,
+    lSetScore: 0,
+    rSetScore: 0,
     scoreLimit: 3,
   };
 
@@ -30,8 +33,8 @@ class App extends Component {
     this.setState({
       countdown: 6,
       winner: "",
-      leftScore: 0,
-      rightScore: 0,
+      lScore: 0,
+      rScore: 0,
     });
     this.timer = setInterval(() => {
       this.tick();
@@ -48,70 +51,64 @@ class App extends Component {
     switch (countdown) {
       case 0:
         this.handleScore();
-        break
+        break;
       case -2:
         this.determineFinalWinner();
-        break
+        break;
       case -3:
         this.setState({
           winner: "",
           countdown: 3,
-          leftChoice: "",
-          rightChoice: "",
+          lChoice: "",
+          rChoice: "",
         });
-        break
+        break;
       default:
         break;
     }
   };
 
   handleScore = () => {
-    const { leftChoice, rightChoice, leftScore, rightScore } = this.state;
-    const winner = determineWinner(leftChoice, rightChoice);
+    const { lChoice, rChoice, lScore, rScore } = this.state;
+    const winner = determineWinner(lChoice, rChoice);
 
     this.setState({
       winner: winner === "Tie!" ? winner : winner + " player wins!",
-      leftScore: winner === "Left" ? leftScore + 1 : leftScore,
-      rightScore: winner === "Right" ? rightScore + 1 : rightScore,
+      lScore: winner === "Left" ? lScore + 1 : lScore,
+      rScore: winner === "Right" ? rScore + 1 : rScore,
     });
   };
 
   determineFinalWinner = () => {
-    const { rightScore, leftScore, scoreLimit } = this.state;
+    const { lScore, rScore, lSetScore, rSetScore, scoreLimit } = this.state;
 
-    if (rightScore === scoreLimit || leftScore === scoreLimit) {
+    if (lScore === scoreLimit || rScore === scoreLimit) {
+      const finalWinner = rScore > lScore ? "Right player" : "Left player";
+
       this.setState({
         countdown: 7,
-        winner: `${
-          rightScore > leftScore ? "Right" : "Left"
-        } player wins it all!`,
+        winner: `${finalWinner} wins it all!`,
+        lSetScore: finalWinner === "Left player" ? lSetScore + 1 : lSetScore,
+        rSetScore: finalWinner === "Right player" ? rSetScore + 1 : rSetScore,
       });
       clearInterval(this.timer);
     }
   };
 
   render() {
-    const {
-      countdown,
-      leftChoice,
-      rightChoice,
-      leftScore,
-      rightScore,
-    } = this.state;
+    const { countdown, lChoice, rChoice, lScore, rScore, lSetScore, rSetScore } = this.state;
 
-    const startButton = countdown === 7 && (
-      <button
-        id="start-btn"
-        data-cy="start-btn"
-        onClick={this.startGame}
-      >
-        Start!
+    const startButton = countdown >= 7 && (
+      <button id="start-btn" data-cy="start-btn" onClick={this.startGame}>
+        {countdown === 8 ? "Start!" : "Play again!"}
       </button>
     );
 
     const winner = (countdown === 7 ||
       (countdown <= -1 && countdown >= -2)) && (
-      <p id="winner" data-cy="winner">{this.state.winner}</p>
+      <p id="winner" data-cy="winner">
+        {this.state.winner}
+      </p>
     );
 
     return (
@@ -124,16 +121,8 @@ class App extends Component {
           <Countdown countdown={countdown} />
           {winner}
         </div>
-        <Players
-          countdown={countdown}
-          rightChoice={rightChoice}
-          leftChoice={leftChoice}
-        />
-        <div className="score">
-          <div id="l-score" data-cy="l-score">{leftScore}</div>
-          -
-          <div id="r-score" data-cy="r-score">{rightScore}</div>
-        </div>
+        <Players countdown={countdown} rChoice={rChoice} lChoice={lChoice} />
+        <Score lScore={lScore} rScore={rScore} lSetScore={lSetScore} rSetScore={rSetScore} />
         <HotkeysSheet />
       </div>
     );

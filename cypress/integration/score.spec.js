@@ -1,4 +1,4 @@
-describe.only("Score", () => {
+describe("Score", () => {
   beforeEach(() => {
     cy.visit("/");
     cy.get("[data-cy=start-btn]").click();
@@ -7,8 +7,8 @@ describe.only("Score", () => {
   it("is initially set to 0 - 0", () => {
     cy.get("[data-cy=l-score]").should("contain", 0);
     cy.get("[data-cy=r-score]").should("contain", 0);
-    cy.get("[data-cy=l-set-score]").should("contain", 0);
-    cy.get("[data-cy=r-set-score]").should("contain", 0);
+    cy.get("[data-cy=l-set-score]").should("contain", "");
+    cy.get("[data-cy=r-set-score]").should("contain", "");
   });
 
   it("increases by 1 for winner", () => {
@@ -18,11 +18,20 @@ describe.only("Score", () => {
     cy.get("[data-cy=l-score]").should("contain", 1);
   });
 
-  it("after a set, the winner's set score increases by 1", () => {
+  it("after each set, the winner's set score increases by 1", () => {
     cy.gameRoundWhereWinnerIs('left')
     cy.gameRoundWhereWinnerIs('left')
     cy.gameRoundWhereWinnerIs('left')
 
-    cy.get("[data-cy=l-set-score").should("contain", 1)
+    cy.get("[data-cy=l-set-score").should("contain", "|")
+    cy.get("[data-cy=r-set-score").should("contain", "")
+    
+    cy.get("[data-cy=start-btn]").click();
+    cy.gameRoundWhereWinnerIs('left')
+    cy.gameRoundWhereWinnerIs('left')
+    cy.gameRoundWhereWinnerIs('left')
+    
+    cy.get("[data-cy=l-set-score").should("contain", "||")
+    cy.get("[data-cy=r-set-score").should("contain", "")
   })
 });
